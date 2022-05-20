@@ -1,0 +1,53 @@
+synchronized 예제
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R217_Card.java
+
+wait() 및 notifyAll() 예제
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R218_Pool.java
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R218_MainSample.java
+
+1분 간격 반복 실행
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R224_RotatingScheduleSample.java
+Timer, TimerTask
+
+단일 스레드 실행하는 ExecutorService
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R225_MainSample.java
+    ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+지정된 간격으로 작업 실행
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R226_ScheduledExecutorSample.java
+    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+    executorService.scheduleAtFixedRate(new Runnable(){...
+
+스레드 풀링
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R227_ThreadPoolSample.java
+      ExecutorService fixedThreadPool = Executors.newFixedThreadPool(10);
+      ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+      ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
+* shutdown 주의
+
+Callable 및 Future (작업 실행 완료 후 결과를 리턴받아 처리)
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R228_CallableSample.java
+    ExecutorService executorService = Executors.newSingleThreadExecutor();
+    Future<Date> future = executorService.submit(new Callable<Date>(){
+
+여러 Callable의 결과를 받을 때까지 루프 돌면서 대기
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R229_MainSample.java
+    ExecutorService threadPool = Executors.newFixedThreadPool(10);
+    ExecutorCompletionService<String> service = new ExecutorCompletionService<>(threadPool);
+* future가 없을 때 대기하지 않고 null을 리턴받으려면 take() 대신 poll()을 사용한다.
+
+Thread 간 데이터 교환 (Exchanger)
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R231_ExchangeThread.java
+    Exchanger<String> exchanger = new Exchanger<>();
+      data = exchanger.exchange(this.data);
+
+BlockingQueue
+크기가 지정된 큐에 공간이 없을 때, 공간이 생길 때까지 기다린다.
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R233_BlockingQueueSample.java
+
+TransferQueue
+데이터를 제공하는 쪽에서, 데이터를 사용하는 쪽이 데이터를 가져갈 때까지 기다린다.
+https://github.com/eujungkim/my-recipe/blob/master/ch07-parallel/R234_TransferQueueSample.java
+
+collection 참고
+http://enjoyjava.tistory.com/6
