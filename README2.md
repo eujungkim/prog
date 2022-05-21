@@ -1,11 +1,10 @@
 # write
-
 - Cloud
   - AWS Document(https://docs.aws.amazon.com)
   - GCP Document(https://docs.microsoft.com/en-us/learn/, https://www.microsoft.com/handsonlabs)
   - Azure Document(https://cloud.google.com/docs/)
 
-# 
+# AI
 - AI
   - AI (Artificial Intelligence) : 사람이 해야 할 일을 기계가 대신할 수 있는 모든 자동화에 해당
   - Machine Learning : 명시적으로 규칙을 프로그래밍하지 않고 데이터로부터 의사결정을 위한 패턴을 기계가 스스로 학습
