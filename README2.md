@@ -1,4 +1,4 @@
-# write
+# Cloud
 - Cloud
   - AWS Document(https://docs.aws.amazon.com)
   - GCP Document(https://docs.microsoft.com/en-us/learn/, https://www.microsoft.com/handsonlabs)
@@ -119,3 +119,8 @@
 - 설명 가능한 인공지능, XAI(eXplainable Artificial Intelligence)
   - 어텐션 메커니즘(Attention Mechanism)을 활용한 XAI
   - 설명하는 법 학습하기(Learn to explain)
+
+# Library
+- Http Server : Jetty 9 Embedded (https://www.eclipse.org/jetty/documentation/jetty-9/index.html#jetty-helloworld)
+- Http Client : Jetty 9 HttpClient (https://www.eclipse.org/jetty/documentation/jetty-9/index.html#http-client)
+- Json : Google Gson 2.8.6 (https://github.com/google/gson)
