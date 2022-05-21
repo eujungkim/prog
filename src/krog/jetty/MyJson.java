@@ -1,4 +1,4 @@
-package krog.util;
+package krog.jetty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
