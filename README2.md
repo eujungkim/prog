@@ -70,7 +70,7 @@
 - 시간 흐름에 따른 데이터(Sequential data) 처리하기
   - Recurrent Neural Network(RNN; 순환 신경망)
     - 장점 : 시간 흐름에 따른 과거 정보를 누적, 가변 길이의 데이터 처리 가능, 다양한 구성의 모델
-	- 단점 : 연산 속도 느림, 학습 불안정, 과거 정보를 잘 활용할 수 있는 모델이 아님 (장기 종족성/의존성 문제)
+    - 단점 : 연산 속도 느림(병렬학습이 어렵고 순차적으로 처리, GPU의 병렬처리 이점을 잘 활용못함), 학습 불안정, 과거 정보를 잘 활용할 수 있는 모델이 아님 (장기 종족성/의존성 문제)
   - LSTM(Long-short term memory)
     - forget gate,  input gate, output gate
 	
@@ -96,7 +96,7 @@
   - 1. Training a Model : 초기 학습 데이터(labeled data)를 이용해 모델을 학습합니다.
   - 2. Select Query : 라벨이 되지 않은 데이터 풀로부터 모델에게 도움이 되는 데이터를 선별합니다.
     - Uncertainty Sampling : AI 모델은 가장 불확실하다(least certain)고 생각하는 데이터를 추출하여 라벨링이 필요하다고 요청
-	- Query by committee : 여러 AI 모델간의 의견불일치를 종합 고려하는 방식
+    - Query by committee : 여러 AI 모델간의 의견불일치를 종합 고려하는 방식
   - 3. Human Labeling : 선별한 데이터를 사람이 확인하여 라벨을 태깅합니다.
   - 4. 선별한 라벨 데이터를 기존 학습 데이터와 병합한 후, 다시 모델을 학습합니다.
   
@@ -105,7 +105,7 @@
   - 어텐션 스코어(Attention score), 컨텍스트 벡터(Context vector)
   - XAI로서의 어텐션
     - 어텐션 메커니즘은 기계가 판단시 중요하게 생각하는 부분을 알려줌
-	- 설명가능한 인공지능(eXplainable AI;XAI), 해석가능한 인공지능(interpretable AI)
+    - 설명가능한 인공지능(eXplainable AI;XAI), 해석가능한 인공지능(interpretable AI)
   - 트랜스포머(Transformer)라는 인공신경망은 입력 데이터끼리의 self-attention을 통해 상호 정보교환을 수행하는 것이 특징
   
 - AutoML(Automated Machine Learning) : 자동화된 기계학습
@@ -113,8 +113,8 @@
   - 아키텍처 탐색 자동화
   - GCP AutoML
     - 시각 : AutoML Vision, AutoML Video Intelligence
-	  - 언어 : AutoML Natural Language, AutoML Translation
-	  - 구조화된 데이터 : AutoML Tables
+    - 언어 : AutoML Natural Language, AutoML Translation
+    - 구조화된 데이터 : AutoML Tables
 	
 - 설명 가능한 인공지능, XAI(eXplainable Artificial Intelligence)
   - 어텐션 메커니즘(Attention Mechanism)을 활용한 XAI
