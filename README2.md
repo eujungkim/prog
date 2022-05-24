@@ -112,9 +112,9 @@
   - 하이퍼파라미터 탐색 자동화 : 그리드 서치(Grid search)와 랜덤 서치(Random search) 
   - 아키텍처 탐색 자동화
   - GCP AutoML
-    - 시각 : AutoML Vision, AutoML Video Intelligence
-    - 언어 : AutoML Natural Language, AutoML Translation
-    - 구조화된 데이터 : AutoML Tables
+    - 시각 : AutoML Vision(클라우드나 에지의 이미지에서 유용한 정보 도출), AutoML Video Intelligence(콘텐츠 탐색 기능과 동영상 환경 지원)
+    - 언어 : AutoML Natural Language(머신러닝을 통해 텍스트의 구조와 의미 도출), AutoML Translation(언어를 동적으로 감지하여 각 언어로 번역)
+    - 구조화된 데이터 : AutoML Tables(구조화된 데이터에서 최신 머신러닝 모델을 자동으로 빌드하고 배포)
 	
 - 설명 가능한 인공지능, XAI(eXplainable Artificial Intelligence)
   - 어텐션 메커니즘(Attention Mechanism)을 활용한 XAI
