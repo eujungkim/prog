@@ -23,7 +23,7 @@ public class MessageServlet extends HttpServlet {
 	private static String OK = "{\"Result\":\"Ok\"}";
 	private static String MESSAGE = "{\"Result\":\"Ok\",\"MessageId\":\"%s\",\"Message\":\"%s\"}";
 	
-	private MessageService service = new MessageService();
+	private static MessageService service = new MessageService();
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		long start = System.currentTimeMillis();
