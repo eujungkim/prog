@@ -1,4 +1,4 @@
-package prog.utilNpractice.collection;
+package javaasp.sp.utilNpractice.collection;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +15,7 @@ public class MapSorting {
 	
 	public static void main(String[] args) {
 		
-		// ì°¸ì¡° ?‚¬?´?Š¸(Map?„ ? •? ¬(sorting)?•˜?Š” ?‹¤?–‘?•œ ë°©ë²•) : https://codechacha.com/ko/java-sort-map/	
+		// ì°¸ì¡° ì‚¬ì´íŠ¸(Mapì„ ì •ë ¬(sorting)í•˜ëŠ” ë‹¤ì–‘í•œ ë°©ë²•) : https://codechacha.com/ko/java-sort-map/	
 		
 		Map<String, String> map = new LinkedHashMap<>();
 		map.put("Nepal", "Kathmandu");
@@ -24,21 +24,21 @@ public class MapSorting {
 		map.put("England", "London");
 		map.put("Australia", "Canberra");
 		
-		//1.1 LinkedHashMap ?´?š©?•˜?—¬ ? •? ¬ - Sort by key
-		System.out.println("1.1 LinkedHashMap ?´?š©?•˜?—¬ ? •? ¬ - Sort by key");
+		//1.1 LinkedHashMap ì´ìš©í•˜ì—¬ ì •ë ¬ - Sort by key
+		System.out.println("1.1 LinkedHashMap ì´ìš©í•˜ì—¬ ì •ë ¬ - Sort by key");
 		Map<String, String> result = sortMapByKeyUsingLinkedHashMap(map);
 		for (Map.Entry<String, String> entry : result.entrySet()) {
 		    System.out.println("  Key: " + entry.getKey() + ", " + "Value: " + entry.getValue());
 		}
-		//1.2 LinkedHashMap ?´?š©?•˜?—¬ ? •? ¬ - Sort by value
-		System.out.println("1.2 LinkedHashMap ?´?š©?•˜?—¬ ? •? ¬ - Sort by value");
+		//1.2 LinkedHashMap ì´ìš©í•˜ì—¬ ì •ë ¬ - Sort by value
+		System.out.println("1.2 LinkedHashMap ì´ìš©í•˜ì—¬ ì •ë ¬ - Sort by value");
 		Map<String, String> resultByValue = sortMapByValueUsingLinkedHashMap(map);
 		for (Map.Entry<String, String> entry : resultByValue.entrySet()) {
 		    System.out.println("  Key: " + entry.getKey() + ", " + "Value: " + entry.getValue());
 		}
 		
-		//2. TreeMap?„ ?´?š©?•˜?—¬ ? •? ¬
-		System.out.println("2. TreeMap?„ ?´?š©?•˜?—¬ ? •? ¬");
+		//2. TreeMapì„ ì´ìš©í•˜ì—¬ ì •ë ¬
+		System.out.println("2. TreeMapì„ ì´ìš©í•˜ì—¬ ì •ë ¬");
 		Comparator<String> comparatorReverse = (s1, s2)->s2.compareTo(s1);
 		Map<String, String> treeMap = new TreeMap<>(comparatorReverse);
 		treeMap.put("Nepal", "Kathmandu");
@@ -50,23 +50,23 @@ public class MapSorting {
 		    System.out.println("  Key: " + entry.getKey() + ", " + "Value: " + entry.getValue());
 		}
 		
-		//3.1 Listë¥? ?´?š©?•˜?—¬ ? •? ¬  - Sort by key
-		System.out.println("3.1 Listë¥? ?´?š©?•˜?—¬ ? •? ¬  - Sort by key");
+		//3.1 Listë¥¼ ì´ìš©í•˜ì—¬ ì •ë ¬  - Sort by key
+		System.out.println("3.1 Listë¥¼ ì´ìš©í•˜ì—¬ ì •ë ¬  - Sort by key");
 		List<String> keyList = new ArrayList<>(map.keySet());
 		keyList.sort((s1, s2)->s1.compareTo(s2));
 		for (String key : keyList) {
 		    System.out.println("  Key: " + key);
 		}
-		//3.2 Listë¥? ?´?š©?•˜?—¬ ? •? ¬  - Sort by value
-		System.out.println("3.2 Listë¥? ?´?š©?•˜?—¬ ? •? ¬  - Sort by value");
+		//3.2 Listë¥¼ ì´ìš©í•˜ì—¬ ì •ë ¬  - Sort by value
+		System.out.println("3.2 Listë¥¼ ì´ìš©í•˜ì—¬ ì •ë ¬  - Sort by value");
 		List<String> valueList = new ArrayList<>(map.values());
 		valueList.sort(String::compareTo);
 		for (String value : valueList) {
 		    System.out.println("  Value: " + value);
 		}
 		
-		//4.1 Stream?„ ?´?š©?•˜?—¬ ? •? ¬ - Sort by key
-		System.out.println("4.1 Stream?„ ?´?š©?•˜?—¬ ? •? ¬ - Sort by key");
+		//4.1 Streamì„ ì´ìš©í•˜ì—¬ ì •ë ¬ - Sort by key
+		System.out.println("4.1 Streamì„ ì´ìš©í•˜ì—¬ ì •ë ¬ - Sort by key");
 		List<Map.Entry<String, String>> entries =
 		        map.entrySet().stream()
 		                    .sorted(Map.Entry.comparingByKey())
@@ -75,8 +75,8 @@ public class MapSorting {
 		    System.out.println("  Key: " + entry.getKey() + ", " + "Value: " + entry.getValue());
 		}
 
-		//4.2 Stream?„ ?´?š©?•˜?—¬ ? •? ¬ - Sort by value
-		System.out.println("4.2 Stream?„ ?´?š©?•˜?—¬ ? •? ¬ - Sort by value");
+		//4.2 Streamì„ ì´ìš©í•˜ì—¬ ì •ë ¬ - Sort by value
+		System.out.println("4.2 Streamì„ ì´ìš©í•˜ì—¬ ì •ë ¬ - Sort by value");
 		entries = map.entrySet().stream()
 		        .sorted(Map.Entry.comparingByValue())
 		        .collect(Collectors.toList());
@@ -85,14 +85,14 @@ public class MapSorting {
 		}
 		
 		
-		// ?Š¤?Š¸ë¦¼ì„ ?´?š©?•œ Map ? •? ¬
+		// ìŠ¤íŠ¸ë¦¼ì„ ì´ìš©í•œ Map ì •ë ¬
 		//testMapSortingByStream();
 
 		
 	}
 	
 	/**
-	 * Map.Entryë¥? ë¦¬ìŠ¤?Š¸ë¡? ê°?? ¸?? key ê°’ìœ¼ë¡? ? •? ¬?•˜ê³?, ? •? ¬?œ ?ˆœ?„œ??ë¡? LinkedHashMap?— ì¶”ê?
+	 * Map.Entryë¥¼ ë¦¬ìŠ¤íŠ¸ë¡œ ê°€ì ¸ì™€ key ê°’ìœ¼ë¡œ ì •ë ¬í•˜ê³ , ì •ë ¬ëœ ìˆœì„œëŒ€ë¡œ LinkedHashMapì— ì¶”ê°€
 	 * @param map
 	 * @return
 	 */
@@ -108,7 +108,7 @@ public class MapSorting {
 	}
 	
 	/**
-	 * Map.Entryë¥? ë¦¬ìŠ¤?Š¸ë¡? ê°?? ¸?? value ê°’ìœ¼ë¡? ? •? ¬?•˜ê³?, ? •? ¬?œ ?ˆœ?„œ??ë¡? LinkedHashMap?— ì¶”ê?
+	 * Map.Entryë¥¼ ë¦¬ìŠ¤íŠ¸ë¡œ ê°€ì ¸ì™€ value ê°’ìœ¼ë¡œ ì •ë ¬í•˜ê³ , ì •ë ¬ëœ ìˆœì„œëŒ€ë¡œ LinkedHashMapì— ì¶”ê°€
 	 * @param map
 	 * @return
 	 */
