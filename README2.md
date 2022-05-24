@@ -70,7 +70,7 @@
 - 시간 흐름에 따른 데이터(Sequential data) 처리하기
   - Recurrent Neural Network(RNN; 순환 신경망)
     - 장점 : 시간 흐름에 따른 과거 정보를 누적, 가변 길이의 데이터 처리 가능, 다양한 구성의 모델
-	- 단점 : 연산 속도 느림, 학습 불안정, 과거 정보를 잘 활용할 수 있는 모델이 아님
+	- 단점 : 연산 속도 느림, 학습 불안정, 과거 정보를 잘 활용할 수 있는 모델이 아님 (장기 종족성/의존성 문제)
   - LSTM(Long-short term memory)
     - forget gate,  input gate, output gate
 	
