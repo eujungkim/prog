@@ -65,7 +65,7 @@
   - Tokenizing(Parsing)
   - 워드임베딩(word embedding) : 토큰을 벡터화
     - 원-핫 인코딩(One-hot Encoding)
-	- CBOW와 SKIPGRAM
+	- CBOW(빈 칸에 알맞은 말)와 SKIPGRAM(문장 내에서의 문맥으로 추측)
 	
 - 시간 흐름에 따른 데이터(Sequential data) 처리하기
   - Recurrent Neural Network(RNN; 순환 신경망)
