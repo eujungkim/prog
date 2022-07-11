@@ -19,3 +19,25 @@ fixedThreadPool.submit(new Thread(new Writer("output2.txt")));
 - volatile : https://www.baeldung.com/java-volatile-variables-thread-safety
 
 https://www.baeldung.com/java-tutorial
+
+---
+. file read/write
+https://github.com/eujungkim/prog/blob/main/src/krog/util/AllReaderWriter.java
+
+. 외부 process 호출
+https://github.com/eujungkim/prog/blob/main/src/krog/util/Snippets.java processBuilderSample()
+https://github.com/eujungkim/prog/blob/main/src/prog/pattern/externalprocess/ExternalProcess.java
+https://github.com/eujungkim/prog/blob/main/src/prog/pattern/ZQuiz/quiz4/Quiz4Pattern1.java
+
+. jetty server / client
+https://github.com/eujungkim/prog/blob/main/src/krog/jetty
+
+.gson
+https://github.com/eujungkim/prog/blob/main/src/krog/util/MyJson.java
+
+. url class loader 및 reflection
+https://github.com/eujungkim/prog/blob/main/src/krog/util/Snippets.java reflectionSample()
+https://github.com/eujungkim/prog/blob/main/src/prog/utilNpractice/reflection/ReflectionTest.java
+https://github.com/eujungkim/prog/blob/main/src/prog/pattern/ZQuiz/quiz4/Quiz4Pattern1.java
+https://www.baeldung.com/jar-file-get-class-names
+https://www.baeldung.com/java-reflection
