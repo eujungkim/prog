@@ -10,6 +10,19 @@ while (scanner.hasNextLine()) {
 ```
 List<String> resultList = Collections.synchronizedList(new ArrayList<>());
 ```
+##### gson (json to object)
+```
+ContentResponse contentRes = httpClient.newRequest("http://127.0.0.1:8080/queueInfo").method(HttpMethod.GET).send();
+String jsonInput = contentRes.getContentAsString();
+
+Gson gson = new Gson();
+ControllerInput input = gson.fromJson(jsonInput, ControllerInput.class);
+```
+##### gson (object to json)
+```
+Gson gson = new Gson();
+String content = gson.toJson(new OutputQueueData(resultList));
+```
 ##### HttpClient get
 ```
 HttpClient httpClient = new HttpClient();
