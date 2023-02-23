@@ -92,3 +92,47 @@ Runnable a = new Runnable() {
 };
 new Thread(a).start();
 ```
+##### scheduled executor service - fixed rate
+`````
+ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+executorService.scheduleAtFixedRate(() -> {
+    System.out.println(new Date() + " BACKUP " + processNo);
+    // do something
+}, 5, 5, TimeUnit.SECONDS); // 5초 후부터 5초 간격
+`````
+##### scheduled executor service - fixed delay
+```
+ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+executorService.scheduleWithFixedDelay(() -> {
+    try {
+        JavaProcess.exec(MyProcess.class, ins);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}, 0, 10, TimeUnit.MILLISECONDS); // 바로 시작, 10ms 이후 다시 시작(1개만 실행됨)
+```
+##### serialization(직렬화), deserialization(역직렬화)
+```
+class BackupData implements Serializable  {
+    // do something
+}
+
+try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("backup/process" + processNo + ".dat"))) {
+    BackupData restoredBackupData = (BackupData) in.readObject();								
+    // do something
+} catch (IOException | ClassNotFoundException e) {
+    e.printStackTrace();
+}
+
+BackupData backupData = new BackupData(processNo);
+try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("backup/process" + processNo + ".dat"))) {
+    out.writeObject(backupData);
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+##### directory 생성
+```
+new File("backup").deleteOnExit();
+new File("backup").mkdir();
+```
