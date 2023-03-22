@@ -25,7 +25,7 @@ while ((line = b.readLine()) != null) {
 ##### Servlet
 ```
 public class RunManager {
-	public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception {
 		new MyServer().start(8080);
 	}
 }
