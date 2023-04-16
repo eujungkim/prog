@@ -1,10 +1,11 @@
+
 ##### read request body
 ```
 public String getReqBody(HttpServletRequest req) throws IOException {
   return req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 }
 ```
-#### gson
+##### gson
 ```
 // json string to object
 String body = getReqBody(req);
@@ -13,11 +14,11 @@ CreateInput input = gson.fromJson(body, CreateInput.class);
 // object to json string
 gson.toJson(new CommonOutput("OK"))
 ```
-#### servlet
+##### servlet
 ```
 public class MyServlet extends HttpServlet {
 ```
-#### server
+##### server
 ```
 public class RunManager {
   public static void main(String[] args) throws Exception {
@@ -40,11 +41,11 @@ class MyServer {
   }
 }
 ```
-#### response writer
+##### response writer
 ```
 res.getWriter().write(gson.toJson(new CommonOutput("OK")));
 ```
-#### concurrent collection
+##### concurrent collection
 ```
 // List
 List<Message> list = Collections.synchronizedList(new ArrayList<Message>());
@@ -61,7 +62,7 @@ Set<String> set2 = new ConcurrentSkipListSet<>();
 
 Map<String, List<Message>> queueMap = new ConcurrentHashMap<>();
 ```
-#### thread
+##### thread
 ```
 ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 // 지정된 delay 후 일회성 실행
