@@ -16,13 +16,25 @@ BufferedReader buf = new BufferedReader(reader);
 String filename = buf.readLine();
 ```
 ```
-FileReader a = new FileReader(proxyName);
-BufferedReader b = new BufferedReader(a);
+FileReader reader = new FileReader(intputFile); // String inputFile
+FileWriter writer = new FileWriter(outputFile); // String outputFile
+BufferedReader buf = new BufferedReader(reader);
+PrintWriter wbuf = new PrintWriter(writer, true);
 
 List<String> values = new ArrayList<>();
 String line;
 while ((line = b.readLine()) != null) {
     values.add(line);
+    wbuf.println(line);
+}
+// resource close
+```
+```
+InputStream in = new FileInputStream(inputFile);
+OutputStream out = new FileOutputStream(outputFile);
+byte[] buf = new byte[1024];
+while ( (len = in.read(buf)) != -1) {
+  out.write(buf, 0, len);
 }
 ```
 ##### directory 생성
@@ -144,6 +156,21 @@ Set<String> set2 = new ConcurrentSkipListSet<>();
 
 Map<String, List<Message>> queueMap = new ConcurrentHashMap<>();
 ```
+##### blocking queue
+```
+public class BlockingQueueSample {
+  private final BlockingQueue<String> queue = new SynchronousQueue<>();
+  public String get() throws InterruptedException {
+    // 선두의 요소를 구함(큐에서 삭제됨), 추가가 될 때까지 블로킹 됨
+    return queue.take();
+  }
+  public void add(String value) throws InterruptedException {
+    // 큐에 요소를 추가, 취득할 수 있을 때까지 블로킹 됨
+    queue.put(value);
+  }
+}
+```
+
 #### thread
 ##### thread start
 ```
@@ -170,8 +197,29 @@ scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit u
 scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit)
 // 0, 10, TimeUnit.MILLISECONDS); // 바로 시작, 10ms 이후 다시 시작(1개만 실행됨)
 ```
+##### callable & future
+```
+ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+// java.util.Date를 전달한 작업을 실행
+Future<Date> future = executorService.submit(new Callable<Date>(){
+  @Override
+  public Date call() throws Exception {
+    Thread.sleep(1000);
+    return new Date();
+  }
+});
+
+// 결과를 구함(작업 실행이 완료되기까지 블로킹 됨)
+Date date = future.get();
+System.out.println(date);
+
+// 모든 작업이 종료하면 셧다운
+executorService.shutdown();
+```
+
 #### process
-##### Java Process
+##### Process
 ```
 public final class JavaProcess {
 
@@ -198,6 +246,23 @@ public final class JavaProcess {
     return process.exitValue();
   }  
   // use : JavaProcess.exec(MyProcess.class, ins); // ins : List<String>
+}
+```
+```
+Process process = new ProcessBuilder("./CODECONV","MESSAGE02").start();
+InputStream is = process.getInputStream();
+byte[] buff = new byte[9];
+int size = is.read(buff);
+System.out.println(size);
+System.out.println(new String(buff));
+```
+```
+Process theProcess = Runtime.getRuntime().exec(command);
+BufferedReader inStream = new BufferedReader(new InputStreamReader( theProcess.getInputStream(),"euc-kr"));
+List<String> readData = new ArrayList<String>();
+String line = null;
+while ( ( line = inStream.readLine( ) ) != null ) {
+  readData.add(line);
 }
 ```
 ##### Java Process run
@@ -241,4 +306,33 @@ try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("backu
 } catch (IOException e) {
   e.printStackTrace();
 }
+```
+
+#### collection
+##### tip
+```
+HashMap<String, Integer> hm = new HashMap<>();
+hm.getOrDefault(player, 0)
+
+int[] temp = Arrays.copyOfRange(array, 2, 5);
+Arrays.sort(temp);
+
+List<Integer> result = new ArrayList<Integer>();
+Collections.sort(result);
+```
+
+#### etc
+##### class loader, reflection
+```
+File jarFile = new File(ExternalJarPath);
+		
+URL classURL = new URL("jar:" + jarFile.toURI().toURL() + "!/");
+URLClassLoader classLoader = new URLClassLoader(new URL[] {classURL});
+		
+Class<?> c = classLoader.loadClass("Calculator");
+Constructor<?> constructor = c.getConstructor(new Class[]{});
+Object object = constructor.newInstance(new Object[]{});
+		
+Method method = c.getMethod("add", new Class[]{Integer.TYPE, Integer.TYPE});
+Object returnValue = method.invoke(object, 1, 2);
 ```
