@@ -9,7 +9,7 @@ while (scanner.hasNextLine()) {
 ```
 
 #### 파일
-##### 파일 reader
+##### 파일 reader, writer
 ```
 FileReader reader = new FileReader(line + ".txt");
 BufferedReader buf = new BufferedReader(reader);
@@ -37,10 +37,49 @@ while ( (len = in.read(buf)) != -1) {
   out.write(buf, 0, len);
 }
 ```
+all reader writer
+https://github.com/eujungkim/prog/blob/main/src/krog/util/AllReaderWriter.java
 ##### directory 생성
 ```
 new File("backup").deleteOnExit();
 new File("backup").mkdir();
+```
+##### random access file (read)
+```
+int seekSize = 5; // 읽어들일 사이즈
+// 읽기 전용으로 파일을 읽음.
+RandomAccessFile rdma = new RandomAccessFile("/test.txt","r");
+String line = "";
+while ((line = rdma.readLine()) != null) {
+  System.out.println(line); // 전체 문자열을 출력
+}
+System.out.println("total length : " + rdma.length()+"\n"); // 문자열 총 길이
+byte[] data = null;
+// 루프 사이즈 = 총길이/seekSize + (총길이%seekSize의 나머지가 0이면 0을 반환 0이아니면 1을 반환)
+long size = rdma.length()/seekSize+(rdma.length()%seekSize == 0 ? 0:1);
+for (int i = 0; i < size; i++) {
+  data = new byte[seekSize];
+  // seekSize 만큼 증가
+  rdma.seek(i*seekSize);
+  rdma.read(data);
+  // 바이트 데이터를 문자열로 변환(trim()을 사용해 공백을 제거) 
+  System.out.printf("pointer : %02d  str : %s \n" , rdma.getFilePointer(), new String(data).trim());
+}	
+rdma.close(); // 파일 닫기
+```
+##### random access file (write)
+```
+public static String lock = "lock";
+///...
+File file = new File(fileName);
+RandomAccessFile rf = new RandomAccessFile(file, "rw");
+for (int i = 0; i < 10; i++) {
+  synchronized (RandomAccessFileWriter.lock) {
+    rf.seek(rf.length());
+    rf.write((Thread.currentThread().getName() + "-" + i + "\n").getBytes());
+  }
+}
+rf.close();
 ```
 
 #### convert
@@ -91,8 +130,8 @@ class MyServer {
 ##### servlet
 ```
 public class MyServlet extends HttpServlet {
-@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String query = req.getQueryString();
     String uri = req.getRequestURI();
       
@@ -135,8 +174,20 @@ Gson gson = new Gson();
 String content = gson.toJson(new OutputQueueData(resultList));
 httpClient.newRequest(outputQueueURI)
   .method(HttpMethod.POST)
+  .param("param1", "paramValue1")
+  .header(HttpHeader.CONTENT_TYPE, "application/json")
+  .cookie(new HttpCookie("key1", "value1"))
   .content(new StringContentProvider(content))
   .send();
+
+// multipart
+MultiPartContentProvider multiPart = new MultiPartContentProvider();
+multiPart.addFieldPart("fruit", new StringContentProvider("apple"), null);
+multiPart.addFilePart("icon", "img.png", new PathContentProvider(Paths.get("testimg.png")), null);
+		multiPart.close();
+		httpClient.POST("http://127.0.0.1:8080/UploadFile")
+		    .content(multiPart)
+		    .send();
 ```
 #### concurrent
 ##### concurrent collection
@@ -196,6 +247,15 @@ scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit u
 // initialDelay 후 한 실행 종료와 다음 실행 시작 사이에 delay를 적용해 주기적 실행
 scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit)
 // 0, 10, TimeUnit.MILLISECONDS); // 바로 시작, 10ms 이후 다시 시작(1개만 실행됨)
+```
+##### ExecutorService
+```
+// fixed pool
+ExecutorService fixedThreadPool = Executors.newFixedThreadPool(100);
+for (int i = 0; i < 10; i++) {
+  fixedThreadPool.execute(new Thread(new RandomWriter("output3.txt")));
+}
+fixedThreadPool.shutdown();
 ```
 ##### callable & future
 ```
@@ -319,6 +379,9 @@ Arrays.sort(temp);
 
 List<Integer> result = new ArrayList<Integer>();
 Collections.sort(result);
+
+// 통상 ArrayList가 더 효율적이지만, LinkedList는 아래의 함수를 제공함
+// addFirst(), addLast(), removeFirst(), removeLast(), getFirst(), getLast()
 ```
 
 #### etc
@@ -335,4 +398,89 @@ Object object = constructor.newInstance(new Object[]{});
 		
 Method method = c.getMethod("add", new Class[]{Integer.TYPE, Integer.TYPE});
 Object returnValue = method.invoke(object, 1, 2);
+```
+```
+File classFile = new File("C:\\MyClass.class");
+URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { classFile.toURI().toURL() });
+Class<?> clazz = urlClassLoader.loadClass("aaa.bbb.ccc.MyClass"); // load class
+Object obj = clazz.newInstance(); // new instance
+int[] tmp = new int[] {};
+Method method1 = clazz.getMethod("returnIntArray", tmp.getClass()); // get method with int array input
+Object result1 = method1.invoke(obj, new int[] { 1, 5 }); // invoke method
+int size = Array.getLength(result1); // get length of array result
+int[] output1 = new int[size]; // convert object to array
+for (int i = 0; i < size; i++) {
+  output1[i] = Array.getInt(result1, i);
+}
+System.out.println(Arrays.toString(output1));
+
+Method method2 = clazz.getMethod("returnString", String.class, String.class); // get method
+Object result2 = method2.invoke(obj, "data1", "data2"); // invoke method
+String output2 = (String) result2; // convert object to string
+System.out.println(output2);
+urlClassLoader.close();
+```
+```
+File jarFile = new File("C:\\myclass.jar");
+URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { jarFile.toURI().toURL() });
+Class<?> clazz = urlClassLoader.loadClass("aaa.bbb.ccc.MyClass2"); // load class
+Object obj = clazz.newInstance(); // new instance
+Method method = clazz.getMethod("returnString", String.class, String.class); // get method with string inputs
+Object result = method.invoke(obj, "data1", "data2");
+System.out.println(result);
+			
+Object result1 = clazz.getMethod("returnIntArray", (new int[] {}).getClass()).invoke(obj, new int[] { 1, 5 }); // get method with int array input
+int[] output2 = (int[]) result1; // convert object to array
+System.out.println(Arrays.toString(output2));
+urlClassLoader.close();
+```
+##### base64
+```
+Encoder encoder = Base64.getEncoder();    
+String encodedString = encoder.encodeToString(inputString.getBytes("UTF-8"));
+
+Decoder decoder = Base64.getDecoder();
+byte[] decodedBytes = decoder.decode(encodedString);
+String decodedString = new String(decodedBytes, "UTF-8");
+```
+##### sha265
+```
+MessageDigest mDigest = MessageDigest.getInstance("SHA-256");    
+byte[] result = mDigest.digest(input.getBytes());
+StringBuffer sb = new StringBuffer();	    
+for (int i = 0; i < result.length; i++) {
+  sb.append(Integer.toString((result[i] & 0xFF) + 0x100, 16).substring(1));
+}
+System.out.println(sb.toString());
+```
+##### format string
+```
+String str = "teststring";
+int a = 12345;
+String format;
+format = String.format("%15s", str); // 문자 포맷, String.format("%자릿수s", str) => [     teststring]
+format = String.format("%5s", str); // 입력 길이가 자릿수보다 길 경우 그대로 출력 => [teststring]
+format = String.format("%-15s", str); // 왼쪽 정렬 => [teststring     ]
+format = String.format("%15d", a); // 숫자 포맷, String.format("%자릿수d", num) => [            123]
+format = String.format("%015d", a); // 앞에 0 삽입 => [000000000000123]
+format = String.format("%02d", a); // 입력 길이가 자릿수보다 길 경우 그대로 출력 => [12345]
+```
+##### 2, 8, 16진수
+```
+int i = 127;    	 
+String binaryString = Integer.toBinaryString(i); //2진수
+String octalString = Integer.toOctalString(i);   //8진수
+String hexString = Integer.toHexString(i);       //16진수
+    	 
+System.out.println(binaryString); //1111111
+System.out.println(octalString);  //177
+System.out.println(hexString);    //7f    	 
+    	 
+int binaryToDecimal = Integer.parseInt(binaryString, 2);
+int binaryToOctal = Integer.parseInt(octalString, 8);
+int binaryToHex = Integer.parseInt(hexString, 16);
+    	 
+System.out.println(binaryToDecimal); //127
+System.out.println(binaryToOctal);   //127
+System.out.println(binaryToHex);     //127
 ```
