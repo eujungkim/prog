@@ -210,7 +210,8 @@ Map<String, List<Message>> queueMap = new ConcurrentHashMap<>();
 ##### blocking queue
 ```
 public class BlockingQueueSample {
-  private final BlockingQueue<String> queue = new SynchronousQueue<>();
+  int BOUND = 10;
+  private final BlockingQueue<String> queue = new LinkedBlockingQueue<>(BOUND); // bound 지정하지 않으면 integer.MAX_VALUE
   public String get() throws InterruptedException {
     // 선두의 요소를 구함(큐에서 삭제됨), 추가가 될 때까지 블로킹 됨
     return queue.take();
