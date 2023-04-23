@@ -557,6 +557,7 @@ format = String.format("%-15s", str); // 왼쪽 정렬 => [teststring     ]
 format = String.format("%15d", a); // 숫자 포맷, String.format("%자릿수d", num) => [            123]
 format = String.format("%015d", a); // 앞에 0 삽입 => [000000000000123]
 format = String.format("%02d", a); // 입력 길이가 자릿수보다 길 경우 그대로 출력 => [12345]
+format = String.format("%80.3f", a); // 총 8자리, 앞에 0, 뒤에 3자리 소수점 반올림하여 출력
 ```
 ##### 2, 8, 16진수
 ```
@@ -590,6 +591,14 @@ long hourDiff = gap/60/60/1000;
 long time = System.currentTimeMillis();
 SimpleDateFormat dayTime = new SimpleDateFormat("yyyyMMddHHmmss"); // yyyyMMdd : date
 String strTime = dayTime.format(new Date(time));
+
+// 문자열 > Date 타입
+String strTime = "2023-03-13 12:00:30"
+SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+Date date = fm.parse(strTime);
+
+// Date 타입 > LocalDateTime 타입
+LocalDateTime ldt = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(); 
 ```
 ##### soket
 ```
@@ -615,4 +624,17 @@ public static void main(String[] args) throws IOException {
   String answer = input.readLine();
   System.out.println(answer);
 }
+```
+##### string <-> byte array
+```
+String st = "abc123";
+byte[] bytes = st.getBytes("UTF-8");
+for (byte b : bytes) System.out.print(b + " ");
+
+String st2 = new String(bytes);
+
+```
+##### java command
+```
+java -cp bin 패키지.메인클래스명 > 입력파일명
 ```
