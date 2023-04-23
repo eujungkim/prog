@@ -42,7 +42,10 @@ https://github.com/eujungkim/prog/blob/main/src/krog/util/AllReaderWriter.java
 ##### directory 생성
 ```
 new File("backup").deleteOnExit();
-new File("backup").mkdir();
+File dest = new File("./output");
+if (!dest.exists()) {
+  dest.mkdirs();
+}
 ```
 ##### random access file (read)
 ```
@@ -80,6 +83,32 @@ for (int i = 0; i < 10; i++) {
   }
 }
 rf.close();
+```
+##### file list
+```
+File directory = new File(".");
+File[] list = directory.listFiles();
+for (File file : list) {
+  if (file.isDirectory()) {
+    System.out.println("directory : " + file.getName());
+  } else {
+    System.out.println("file : " + file.getName());
+  }
+}
+```
+##### 하위 폴더 탐색
+```
+void fileSearchAll(String path) {
+  File directory = new File(path);
+  File[] list = directory.listFiles();
+  for (File file : list) {
+    if (file.isDirectory()) {
+      fileSearchAll(file.getPath());
+    } else {
+      System.out.println(file.getName());
+    }
+  }
+}
 ```
 
 #### convert
@@ -226,12 +255,14 @@ public class BlockingQueueSample {
 #### thread
 ##### thread start
 ```
-Thread timeChecker = new Thread(new Runnable() {
+Thread t1 = new Thread(new Runnable() {
   @Override
   public void run() {
     // do something    
   });
-timeChecker.start();
+t1.start();
+t1.join(); // thread 종료될 때까지
+
 ```
 ##### ScheduledExecutorService
 ```
@@ -278,6 +309,22 @@ System.out.println(date);
 // 모든 작업이 종료하면 셧다운
 executorService.shutdown();
 ```
+##### lock
+```
+static ReentrantLock lock = new ReentrantLock();
+public method1() {
+  lock.lock();
+  try {
+  } fianlly {
+    lock.unlock();
+  }
+}
+
+ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+Lock readLock = reentrantReadWriteLock.readLock();
+Lock writeLock = reentrantReadWriteLock.writeLock();
+```
+
 
 #### process
 ##### Process
@@ -416,6 +463,19 @@ boolean isReplaced = map.replace("B", "VBScript", "JavaScript"); // B값이 VBSc
 map.replaceAll((key, value) -> value.toUpperCase()); // Map의 모든 요소의 값을 대문자로 변환
 map.forEach((key, value) -> System.out.println(key + ", " + value));
 ```
+##### sort
+```
+Comparator<String> co = new Comparator<String>() {
+  public int compare(String o1, String o2) {
+    return o2.compareTo(o1);
+  }
+};
+Collections.sort(arrayList, co);
+Collections.sort(arrayList, (o1, o2) -> o1.compareTo(o2));
+
+// SortedHashMap : key로 정렬
+// ConcurrentHashMap : thread safe
+```
 
 #### etc
 ##### class loader, reflection
@@ -530,4 +590,29 @@ long hourDiff = gap/60/60/1000;
 long time = System.currentTimeMillis();
 SimpleDateFormat dayTime = new SimpleDateFormat("yyyyMMddHHmmss"); // yyyyMMdd : date
 String strTime = dayTime.format(new Date(time));
+```
+##### soket
+```
+// server
+public static void main(String[] args) throws IOException {
+  ServerSocket listener = new ServerSocket(9090);
+  try {
+    Socket socket = listener.accept();
+    try {
+      PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+      out.println("test");
+    } finally {
+      socket.close();
+    }
+  } finally {
+    listener.close();
+  }
+}
+//client
+public static void main(String[] args) throws IOException {
+  Socket s = new Socket("127.0.0.1", 9090);
+  BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+  String answer = input.readLine();
+  System.out.println(answer);
+}
 ```
