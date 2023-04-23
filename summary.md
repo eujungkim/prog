@@ -84,6 +84,25 @@ for (int i = 0; i < 10; i++) {
 }
 rf.close();
 ```
+##### file copy
+```
+// Files.copy 이용
+// 1. 원본 File, 복사할 File 준비
+File file = new File("./sp/z_pro/Test.java");
+File newFile = new File("./sp/z_pro//Test3.java");
+// 2. 복사
+Files.copy(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+// FileChannel 이용
+// 1. 원본 File, 복사할 File 준비
+RandomAccessFile af1 = new RandomAccessFile("./sp/z_pro/Test.java", "r");
+RandomAccessFile af2 = new RandomAccessFile("./sp/z_pro/Test4.java", "rw");
+// 2. FileChannel 생성
+FileChannel source = af1.getChannel();
+FileChannel target = af2.getChannel();
+// 3. 복사
+source.transferTo(0, source.size(), target);
+```
 ##### file list
 ```
 File directory = new File(".");
