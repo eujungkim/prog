@@ -495,6 +495,10 @@ Collections.sort(arrayList, (o1, o2) -> o1.compareTo(o2));
 // SortedHashMap : key로 정렬
 // ConcurrentHashMap : thread safe
 ```
+```
+Integer[] c = new Integer[n];
+Arrays.sort(c, Collections.reverseOrder());
+```
 
 #### etc
 ##### class loader, reflection
@@ -619,7 +623,7 @@ Date date = fm.parse(strTime);
 // Date 타입 > LocalDateTime 타입
 LocalDateTime ldt = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(); 
 ```
-##### soket
+##### socket
 ```
 // server
 public static void main(String[] args) throws IOException {
