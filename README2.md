@@ -216,9 +216,27 @@ AI 사전학습 및 자기주도학습 (Pre-Training, Self-supervised Learning)
   - 데이터는 많으나 인공지능을 '학습시킬 데이터'를 마련하기 쉽지 않을 때 이용할 수 있는 기술
   - 라벨링을 할 수 있는 인적 자원은 있지만, 많은 수의 라벨링을 수행할 수 없을 때 효과적으로 라벨링을 하기 위한 기법
   - 라벨링을 위한 예산이 한정되었을 때, 모델의 성능을 극대화할 수 있는 라벨링 대상 데이터 찾기
-139
-
-
+  - AI 모델 학습을 시작하는 초기 개발 단계에 매우 효과적이다
+- Active Learning 4단계 (목표 성능이 나올 때까지 아래 방법을 반복)
+  - Training a Model : 초기 학습 데이터(labeled data)를 이용해 모델을 학습
+  - Select Query : 라벨이 되지 않은 데이터 풀로부터 모델에게 도움이 되는 데이터를 선별
+  - Human Labeling : 선별한 데이터를 사람이 확인하여 라벨을 태깅
+  - 선별한 라벨 데이터를 기존 학습 데이터와 병합한 후, 다시 모델을 학습
+- Query Strategy
+  - Active Learning의 핵심은 성능 향상에 효과적인 데이터를 선별하는 방법(쿼리 전략, Query Strategy)이다.
+    - 학습된 모델의 판정 값을 기반으로 뽑는 Uncertainty Sampling
+    - 여러 개의 모델을 동시에 학습시키면서 많은 모델이 틀리는 데이터를 선별하는 Query by committee
+    - 데이터가 학습 데이터로 추가될 때, 학습된 모델이 가장 많이 변화하는 데이터를 선별하는 Expected Impact
+    - 데이터가 밀집된 지역의 데이터들을 선별하는 Density weighted method
+    - 데이터들을 최대한 고르게 뽑아서 전체 분포를 대표할 수 있도록 데이터를 선별하는 Core-set approach
+  - Uncertainty Sampling
+    - AI 모델은 가장 불확실하다(least certain)고 생각하는 데이터를 추출하여 라벨링이 필요하다고 요청
+  - Query by committee
+    - 여러 AI 모델간의 의견불일치를 종합 고려하는 방식
+    - 여러 모델간 추론한 결과 불일치가 많은 데이터일수록 가장 헷갈리는 데이터, 즉 라벨링을 진행할 대상이 되는 것
+## 10편
+어텐션 메커니즘(Attention mechanism)
+146
 
 ---
 - 머신러닝
