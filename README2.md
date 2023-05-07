@@ -87,6 +87,27 @@
   - Segmentation : 픽셀 단위로 영역 구분 (도로 위의 다양한 객체 영역 구별)
 ## 4편
 - 자연어이해(NLU, Natual Language Understanding), 자연어처리(NLP, Natural Language Processing)
+- Tokenizing(Parsing) : 문장을 세부 단위로 쪼개는 작업. 언어/태스크/데이터 특징에 따라 쪼개는 단위는 달라짐.
+- 워드임베딩(word embedding) : 쪼개진 토큰을 벡터화하는 것
+  - 원-핫 인코딩(One-hot Encoding) : 간단하지만 토큰수만큼의 길이를 갖는 벡터가 필요, 토큰 간의 연관관계 표현 불가
+  - CBOW : 인공지능에게 문장을 알려주되 중간중간 빈칸을 만들어 들어갈 단어를 유추시킨다.
+  - Skip-gram : 인공지능에게 단어(토큰) 하나를 알려주고, 주변에 등장할 그럴싸한 문맥을 만들도록 시킨다.
+  - <img src="https://user-images.githubusercontent.com/7552395/236666234-589b2a41-e7af-49e6-87b4-f78c2ec1a542.png" width="50%" height="50%"></img>
+  - CBOW, Skip-gram은 많은 단어를 학습시킬수록 더 좋은 품질의 벡터가 나온다.
+  - 유사한 의미를 갖는 토큰은 유사한 벡터값을 가지도록 학습된다. 토큰끼리의 의미 연산(벡터 연산)이 가능하다.
+  - 원-핫 인코딩에 비해 벡터의 길이가 훨씬 작아 저장공간을 효율적으로 사용한다.
+- 대표적인 자연어이해 태스크
+  - 문장/문서 분류(Sentence/Document Classification)
+    - 입력받은 텍스트를 지정된 K개의 클래스(카테고리) 중 하나로 분류
+    - 사용자 리뷰에 대한 감성분석(긍정/부정), 유저 발화문를 챗봇이 처리할 수 있는 기능 중 하나로 매핑하는 의도분류
+  - Sequence-to-Sequence
+    - 문장/문서를 입력받아 문장을 출력 : 번역, 요약, 자유대화
+  - 질의 응답(Question Answering)
+    - MRC(Machine Reading Comprehension) : 질문에 대해 매뉴얼 내에서 가장 답변이 될 가능성이 높은 영역 리턴
+    - IR(Information Retrieval) : 질문에 대해 가장 유사한 과거 질문/답변(F&Q)를 
+## 5편
+
+
 
 ---
 - 머신러닝
