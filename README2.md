@@ -64,6 +64,7 @@
   - 딥러닝 모델 : 데이터를 통해 자동으로 필요한 특징을 찾아내고 분류를 수행한다
   - 인공 뉴런을 다양한 방식으로 여러 층으로 쌓아 연결한 것이 딥러닝의 기본 구조인 인공신경망이다.
 ## 3편
+이미지 
 - 인공신경망은 가중합와 비선형 함수로 이루어진 연산을 수행해야 하므로 입력 데이터로 벡터나 행렬 형태를 필요로 한다.
 - 흑백 이미지 - 2차원 행렬(matrix), 컬러 이미지 - 3차원 텐서(tensor)
 - Convolutional Neural Network (CNN)
@@ -86,6 +87,7 @@
   - Detection : 입력받은 이미지에서 특정 개체의 위치 좌표값(x,y)을 찾는다
   - Segmentation : 픽셀 단위로 영역 구분 (도로 위의 다양한 객체 영역 구별)
 ## 4편
+언어 처리
 - 자연어이해(NLU, Natual Language Understanding), 자연어처리(NLP, Natural Language Processing)
 - Tokenizing(Parsing) : 문장을 세부 단위로 쪼개는 작업. 언어/태스크/데이터 특징에 따라 쪼개는 단위는 달라짐.
 - 워드임베딩(word embedding) : 쪼개진 토큰을 벡터화하는 것
@@ -106,8 +108,57 @@
     - MRC(Machine Reading Comprehension) : 질문에 대해 매뉴얼 내에서 가장 답변이 될 가능성이 높은 영역 리턴
     - IR(Information Retrieval) : 질문에 대해 가장 유사한 과거 질문/답변(F&Q)를 
 ## 5편
-
-
+시계열 데이터 처리
+- Recurrent Neural Network (RNN, 순환 신경망)
+  - <img src="https://user-images.githubusercontent.com/7552395/236670818-44e6acbd-4f78-4dc3-9cd5-5551827acaa7.png" width="50%" height="50%"></img>
+  - 기존 인공신경망 : 입력값으로 출력값을 예측
+  - RNN : 과거의 처리 이력을 압축하여 반영
+- RNN 장점
+  - 시간 흐름에 따른 과거 정보를 누적할 수 있다.
+  - 가변 길이의 데이터를 처리할 수 있다. (시간 단위를 구성하기 나름)
+  - 다양한 구성의 모델을 만들 수 있다. 구조가 유연. (one to one, one to many, many to one, many to many)
+  - 인코딩-입력 데이터 정보를 누적하는 부분, 디코딩-결과를 출력하는 부분
+- RNN 단점
+  - 연산 속도가 느리다
+    - 현 시점의 데이터를 처리하려면 이전 시점의 데이터 처리가 완료되어야 함. 순처처리므로 GPU 칩의 병렬처리 이점을 잘 활용할 수 없음.
+    - 정형 데이터(수치, 범주형) 활용시 속도 저하를 체감하지 못하며, 텍스트 데이터 처리시 연산 속도 저하 문제 발생
+  - 학습이 불안정하다
+    - 다루는 데이터의 timestep이 길수록 문제 발생 확률 높음
+    - Gradient Exploding : timestep이 길어지면 인공신경망이 학습해야 할 값이 폭발적으로 증가하는 현상
+    - Gradient Vanishing : timestep이 길어지면 오래된 과거 이력이 현재 추론에 거의 영향을 미치지 못하는 문제
+  - 과거 정보를 잘 활용할 수 있는 모델이 아니다
+    - 장기 종속성/의존성 문제(Long-term dependency)
+    - 한 timestep씩 정보를 누적하여 인코딩하므로, 먼 과거 정보는 여러 번 압축되고 누적되어 거의 영향을 미치지 못함
+- RNN 성능 보완
+  - LSTM(Long-short term memory)
+    - 과거 정보 중 중요한 것은 기억하고, 불필요한 것은 잊어버리도록 스스로 조절 가능한 RNN 유닛
+    - forget gate(불필요한 과거 정보 잊기)
+    - input gate(현재 정보를 얼마나 반영할지 결정)
+    - output gate(현재 시점에 연산된 최종 정보를 다음 시점에 얼마나 넘길지 결정)
+    - GRU(Gated Recurrent Unit)도 유사. 기본 RNN은 거의 사용하지 않고 LSTM, GRU 사용
+- 활용 사례 : 태양광 에너지 발전량 예측, 텍스트 문장 번역
+## 6편
+오버피팅(Overfitting), 정규화(Regularization)
+- AI Process
+- <img src="https://user-images.githubusercontent.com/7552395/236672821-56941e35-be75-4331-ac3e-00e402764f4c.png" width="50%" height="50%"></img>
+  - Offline Process (Training Pipeline)
+    - Historical data : 과거에 이미 만들어진 데이터, DB 등에 이미 수집된 데이터 
+    - Generate Feature : 기 확보된 데이터를 정제하여 필요한 부분을 취한다
+    - Collect labels : 라벨(AI 학습을 위해 필요한 정보, 인공지능이 맞춰야 하는 정답)을 붙인다
+    - Validate & Select models : 성능 목표를 달성할 때까지
+    - Train models : 반복 실험 진행
+    - 튜닝 : 실험(Experimentation) 반복, 모델 학습을 위한 여러 설정 수치값(하이퍼파라미터) 조절 등
+    - Publish model : 개선된 성능의 모델을 최종 선택
+  - Online Process (Inference Pipeline)
+    - Load model : AI 모델을 운영환경에 적용
+    - 실전 환경에서 추론(inference)
+- Generalization : 일반화 성능, 이전에 본적 없는 데이터에 대해서도 잘 수행하는 능력
+- Overfitting : 훈련시에만 잘 작동하고 일반화 성능이 떨어지는 모델
+- Dataset : Training, Validation, Test (8:1:1, 6:2:2)
+  - Training set : 머신러닝, 딥러닝 모델을 학습하는데 이용하는 데이터. 정답을 알려줄 데이터.
+  - Validation set : 모델을 튜닝하는데 도움을 주는 데이터. 모델의 일반화 성능을 판단하여 이어질 시험을 계획하는데 이용
+  - Test set : 학습에 관여하지 않고, 모델의 최종 성능을 평가하기 위한 데이터
+- 오버피팅 : Training set에 대해서만 성능이 개선되고, Validation set에 대해서는 별다른 향상이 없는 시점이 오버피팅 발생 시점
 
 ---
 - 머신러닝
