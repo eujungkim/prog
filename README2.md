@@ -197,7 +197,25 @@ AI 사전학습 및 자기주도학습 (Pre-Training, Self-supervised Learning)
 - 대규모 데이터에 대한 Pre-training (대규모의 오픈도메인 데이터에 대해 수행)
   - 시각 데이터에 대한 사전학습 : 이미지넷, Youtube-8M(동영상)
   - 언어 데이터에 대한 사전학습 : 무난하게 활용하기 좋은 데이터는 위키피디아, 나무위키, 세종말뭉치(국립국어원)
-
+- Self-Supervised Learning(자가지도학습)
+  - 데이터는 많은데 라벨(인공지능이 입력 데이터를 제공받으면 추론해야 하는 결과)이 없는 경우
+  - 인공지능 모델 학습 방법
+    - Supervised Learning(지도학습) : 정답이 달린 데이터로 모델 학습
+    - Semi-Supervised Learning(반지도학습) : 정답이 있는 데이터, 없는 데이터를 섞어서 학습
+    - Unsupervised Learning(비지도학습) : 정답이 달리지 않은 데이터로 모델 학습
+  - Self-Supervised Learning : 사람이 만들어주는 정답 라벨이 없어도 기계가 시스템적으로 자체 라벨을 만들어 사용하는 학습 방법
+    - Self-Supervised Learning 후 Transfer Learning을 하면 일반적으로 좋은 성능
+  - Google BERT(Bidirectional Encoder Representations from Transformers)
+    - Self-Supervised Learning 기법으로 사전학습을 하고 다양한 태스크에 Transfer Learning을 할 수 있는 대표적인 예
+    - 자연어처리 연구 패러다임을 전환한 계기가 된 모델
+    - '언어'라는 분야 전반에 걸쳐 지식을 두루 쌓은 '하나의 거대한 뇌'를 사전학습으로 만든다는 개념
+    - 사전학습에서 상당한 양의 데이터(텍스트 코퍼스)를 커다란 모델로 학습시켰으며, 후속 태스크를 위한 Transfer Learning은 간략하게만 진행해도 좋은 성능을 낼 수 있었음
+## 9편
+사람의 라벨링 작업을 최대한 효율적으로 할 수 있는 방법, Active Learning(능동 학습)
+- Active Learning
+  - 데이터는 많으나 인공지능을 '학습시킬 데이터'를 마련하기 쉽지 않을 때 이용할 수 있는 기술
+  - 라벨링을 할 수 있는 인적 자원은 있지만, 많은 수의 라벨링을 수행할 수 없을 때 효과적으로 라벨링을 하기 위한 기법
+  - 라벨링을 위한 예산이 한정되었을 때, 모델의 성능을 극대화할 수 있는 라벨링 대상 데이터 찾기
 
 
 ---
