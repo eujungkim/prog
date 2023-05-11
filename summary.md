@@ -655,9 +655,48 @@ byte[] bytes = st.getBytes("UTF-8");
 for (byte b : bytes) System.out.print(b + " ");
 
 String st2 = new String(bytes);
-
 ```
+
 ##### java command
 ```
 java -cp bin 패키지.메인클래스명 > 입력파일명
+```
+
+##### calendar
+```
+String today = null;
+Date date = new Date();
+System.out.println(date); //Thu May 13 13:25:57 KST 2021
+ 
+// 포맷변경 ( 년월일 시분초)
+SimpleDateFormat sdformat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss"); 
+ 
+// Java 시간 더하기
+Calendar cal = Calendar.getInstance();
+ 
+//지금
+cal.setTime(date);
+today = sdformat.format(cal.getTime());  
+System.out.println("지금 : " + today); //05/13/2021 13:25:57
+ 
+// 3분 더하기
+cal.add(Calendar.MINUTE, 3);
+today = sdformat.format(cal.getTime());  
+System.out.println("3분후 : " + today); //05/13/2021 13:28:57
+ 
+// 1시간 전
+cal.setTime(date);
+cal.add(Calendar.HOUR, -1);
+today = sdformat.format(cal.getTime());  
+System.out.println("1시간 전 : " + today); //05/13/2021 12:25:57
+ 
+// 하루 전
+cal.setTime(date);
+cal.add(Calendar.DATE, -1);
+today = sdformat.format(cal.getTime());  
+System.out.println("1일 전 : " + today); //05/12/2021 13:25:57
+ 
+//월의 마지막 일자
+cal.setTime(date);
+System.out.println(cal.getActualMaximum(Calendar.DAY_OF_MONTH)); //31
 ```
