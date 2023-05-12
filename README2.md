@@ -288,7 +288,42 @@ AutoML
     - Learner model : 성능 개선을 위한 피드백 전달
     - Meta Learner는 대부분 RNN과 강화학습을 활용하여 최적의 하이퍼파라미터를 탐색
 - 아키텍처 탐색 자동화
-162
+  - 아키텍처 : 모델을 이루는 구조
+  - 딥러닝의 경우 인공신경망을 활용하므로, NAS(Neural Architecture search)라고 부른다
+  - NAS도 Meta Learner(어떤 구조의 신경망을 만들지)와 Learner(본 과제를 수행하는 AI 모델)로 이루어짐
+  - Meta Learner는 RNN과 강화학습을 접목한 형식으로 구성
+  - Meta Learner는 Learner의 인공신경망 아키텍처의 구성을 결정하며, Learner의 태스크 수행 결과를 보상으로 활용한다
+  - 진화 알고리즘이나 경사하강법을 기반으로 한 NAS 방식도 있다
+- AutoML
+  - 일반적으로 사람이 고민한 모델 이상의 성능
+  - 랜덤 그래프 생성 방법론을 기반으로 NAS를 진행하자 기존 구성 방법의 틀을 완전히 깬 모델이 만들어짐
+  - 시간이 오래 걸릴 수 있다
+  - Learner 모델과 Meta Learner 모델이 동시다발적으로 학습해야 하므로 고사양의 하드웨어 스펙 필요
+- AutoML 서비스
+  - CSP 3사 모두 AutoML 서비스 제공
+  - Google AutoML
+    - 이미지에 대한 분류(classification)와 객체 탐지(detection)
+    - 동영상에 대한 분류(classification)와 객체추적(visual tracking)
+    - 자연어에 대한 분류(classification), 객체명인식(named entity recognition)
+    - 감정분류(sentiment classification), 번역(translation)
+    - 정형 테이블 데이터에 대한 회귀(regression) 및 분류(classification)
+    - 엣지 레벨(엣지 기기 탑재)와 클라우드 레벨(API 형식) 제공
+## 12편
+XAI
+- 룰 기반 모델, 머신러닝 기반 모델, 회귀 모형, 의사 결정 나무 등은 어떤 변수가 어떤 영향을 미치는지 해석 가능
+- 규칙이나 몇 가지 입력 변수로 판단하기 어려운(특히 비정형 데이터에 대한) 태스크는, 딥러닝이 좋은 성능을 낼 수 있지만 설명력이 부족
+- 설명 가능한 인공지능, XAI(eXplainable Artificial Intelligence)
+  - 모델에 설명 가능한 근거와 해석력을 부여해서 투명성, 신뢰성을 확보하고자 하는 것이 목적
+- DARPA(Defense Advanced Research Projects Agency) : XAI를 가장 본격적으로 연구하는 대표 기관
+- 1) 기존 AI 모델에 설명할 수 있는 어떤 모듈을 덧붙이는 방식
+  - 어텐션 메커니즘(Attention Mechanism)을 활용한 XAI
+  - 설명하는 법 학습하기(Learn to explain) : 딥러닝 모델에 RNN 모듈 등을 덧붙여 인간이 이해할 수 있는 방식으로 설명을 생성하도록 하는 방식
+  - 딥러닝 모델이 해석 가능한 모듈 구성요소로 이루어진 경우, 판정 결과가 어떤 모듈 경로를 따라 연산되는지 파악하는 모듈러 네트워크(Modular Networks) 방식
+  - 딥러닝 모델에서 "설명가능"한 특징을 학습한 노드를 찾아서 그 특징(Feature)에 "설명 라벨"을 붙이는 Feature Identification 방법
+- 2) 애초에 설명력있는 모델을 만드는 방법 : 의사결정나무나 선형회귀분석 모델 (여기서는 논외)
+- 3) 인공신경망처럼 복잡한 블랙박스 모델의 일부분을 설명해 줄 수 있는 다른 모델을 활용하여 유추하는 방식
+  - 일부 영역의 데이터(+와 O)를 활용해 설명력이 좋은 모델을 별도로 하나 더 만들어 학습시킨다
+  - LIME, SP-LIME
 
 ---
 - 머신러닝
