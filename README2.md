@@ -224,7 +224,7 @@ AI 사전학습 및 자기주도학습 (Pre-Training, Self-supervised Learning)
   - 선별한 라벨 데이터를 기존 학습 데이터와 병합한 후, 다시 모델을 학습
 - Query Strategy
   - Active Learning의 핵심은 성능 향상에 효과적인 데이터를 선별하는 방법(쿼리 전략, Query Strategy)이다.
-    - 학습된 모델의 판정 값을 기반으로 뽑는 Uncertainty Sampling
+    - 학습된 모델의 판정 값을 기반으로 뽑는 Uncertainty Sampling (판정값이 낮은 불확실한 데이터)
     - 여러 개의 모델을 동시에 학습시키면서 많은 모델이 틀리는 데이터를 선별하는 Query by committee
     - 데이터가 학습 데이터로 추가될 때, 학습된 모델이 가장 많이 변화하는 데이터를 선별하는 Expected Impact
     - 데이터가 밀집된 지역의 데이터들을 선별하는 Density weighted method
@@ -257,6 +257,8 @@ AI 사전학습 및 자기주도학습 (Pre-Training, Self-supervised Learning)
   - 트랜스포머는 인공신경망 발전(특히 자연어 이해)에 큰 획을 긋고 있다.
   - 순차적 계산이 필요없으므로 RNN보다 빠르며 맥락 파악을 잘 하고 CNN처럼 일부씩 보지 않고 전 영역을 아우른다.
   - 고사양의 하드웨어 스펙 요구
+  - <img src="https://github.com/eujungkim/prog/assets/7552395/fea00a69-1409-4d9d-830a-29fedcbd2e0c" width="30%" height="50%"></img>
+
 ## 11편
 AutoML
 - AI 사이언티스트 : 튜닝 - 아키텍처 변경, 하이퍼파라미터 조절
