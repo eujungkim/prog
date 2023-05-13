@@ -91,7 +91,7 @@
 - 자연어이해(NLU, Natual Language Understanding), 자연어처리(NLP, Natural Language Processing)
 - Tokenizing(Parsing) : 문장을 세부 단위로 쪼개는 작업. 언어/태스크/데이터 특징에 따라 쪼개는 단위는 달라짐.
 - 워드임베딩(word embedding) : 쪼개진 토큰을 벡터화하는 것
-  - 원-핫 인코딩(One-hot Encoding) : 간단하지만 토큰수만큼의 길이를 갖는 벡터가 필요, 토큰 간의 연관관계 표현 불가
+  - 원-핫 인코딩(One-hot Encoding) : 간단하지만 토큰수만큼의 길이를 갖는 벡터가 필요, 토큰 간의 연관관계 표현 불가, 모든 토큰이 서로 대등하며 동일한 양의 정보를 가져야 하므로 0과 1로만 표현
   - CBOW : 인공지능에게 문장을 알려주되 중간중간 빈칸을 만들어 들어갈 단어를 유추시킨다.
   - Skip-gram : 인공지능에게 단어(토큰) 하나를 알려주고, 주변에 등장할 그럴싸한 문맥을 만들도록 시킨다.
   - <img src="https://user-images.githubusercontent.com/7552395/236666234-589b2a41-e7af-49e6-87b4-f78c2ec1a542.png" width="50%" height="50%"></img>
@@ -106,7 +106,7 @@
     - 문장/문서를 입력받아 문장을 출력 : 번역, 요약, 자유대화
   - 질의 응답(Question Answering)
     - MRC(Machine Reading Comprehension) : 질문에 대해 매뉴얼 내에서 가장 답변이 될 가능성이 높은 영역 리턴
-    - IR(Information Retrieval) : 질문에 대해 가장 유사한 과거 질문/답변(F&Q)를 
+    - IR(Information Retrieval) : 질문에 대해 가장 유사한 과거 질문/답변(F&Q)를 꺼내주는 형태
 ## 5편
 시계열 데이터 처리
 - Recurrent Neural Network (RNN, 순환 신경망)
