@@ -27,7 +27,10 @@ while ((line = b.readLine()) != null) {
     values.add(line);
     wbuf.println(line);
 }
-// resource close
+wbuf.close();
+buf.close();
+writer.close();
+reader.close();
 ```
 ```
 InputStream in = new FileInputStream(inputFile);
