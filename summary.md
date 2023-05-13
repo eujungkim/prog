@@ -45,7 +45,7 @@ https://github.com/eujungkim/prog/blob/main/src/krog/util/AllReaderWriter.java
 ##### directory 생성
 ```
 new File("backup").deleteOnExit();
-File dest = new File("./output");
+File dest = new File("./output/output2");
 if (!dest.exists()) {
   dest.mkdirs();
 }
