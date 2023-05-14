@@ -142,6 +142,9 @@ Gson gson = new Gson();
 CreateInput input = gson.fromJson(body, CreateInput.class);
 // object to json string
 gson.toJson(new CommonOutput("OK"))
+
+// field에 transient modifier를 사용하면 Gson serialization/deserialization에서 제외됨
+// 제외 로직을 상세하게 적용하려면 com.google.gson.ExclusionStrategy 사용 (https://www.baeldung.com/gson-exclude-fields-serialization#exclusionstrategy)
 ```
 ##### read json file
 ```
