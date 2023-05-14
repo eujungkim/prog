@@ -355,7 +355,6 @@ Thread t1 = new Thread(new Runnable() {
   });
 t1.start();
 t1.join(); // thread 종료될 때까지
-
 ```
 ##### ScheduledExecutorService
 ```
