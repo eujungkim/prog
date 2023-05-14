@@ -143,6 +143,9 @@ CreateInput input = gson.fromJson(body, CreateInput.class);
 // object to json string
 gson.toJson(new CommonOutput("OK"))
 
+// Gson.toJson()시 null인 필드도 포함하려면
+Gson gson = new GsonBuilder().serializeNulls().create();
+
 // field에 transient modifier를 사용하면 Gson serialization/deserialization에서 제외됨
 // 제외 로직을 상세하게 적용하려면 com.google.gson.ExclusionStrategy 사용 (https://www.baeldung.com/gson-exclude-fields-serialization#exclusionstrategy)
 ```
