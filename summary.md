@@ -279,6 +279,71 @@ public class BlockingQueueSample {
   }
 }
 ```
+##### blocking queue 사용 예
+```
+class Producer implements Runnable {
+  private final BlockingQueue<String> queue;
+  int count;
+  Producer(BlockingQueue<String> q) {
+    queue = q;
+  }
+  public void run() {
+    try {
+      while (true) {
+        Thread.sleep(100);
+        queue.put(produce());
+      }
+    } catch (InterruptedException ex) {
+      ex.printStackTrace();
+    }
+  }
+  String produce() {
+    return count++ + "";
+  }
+}
+
+class Consumer implements Runnable {
+  private final BlockingQueue<String> queue;
+  Consumer(BlockingQueue<String> q) {
+    queue = q;
+  }
+  public void run() {
+    try {
+      while (true) {
+        consume(queue.take());
+      }
+    } catch (InterruptedException ex) {
+      ex.printStackTrace();
+    }
+  }
+  void consume(String x) {
+    System.out.println("consumer " + " " + Thread.currentThread() + " " + x );
+  }
+}
+
+public class Setup {
+  public static void main(String[] args) {
+    // Queue가 꽉찼을때의 삽입 시도 / Queue가 비어있을때의 추출 시도 block
+    BlockingQueue<String> q; 
+    // 생성 후 크기 변경 불가
+    q = new ArrayBlockingQueue<>(10);
+    // capacity를 초기에 정해주지 않는경우 integer.MAX_VALUE로 자동설정
+    q = new LinkedBlockingQueue<>(10);
+    // PriorityQueue와 같은 정렬방식을 지니는 용량제한이 없는 Queue
+    q = new PriorityBlockingQueue<>(10);
+    // Queue 내부로의 insert 작업이 다른 스레드의 remove 작업과 반드시 동시에 일어나야한다.
+    // null 수용 불가
+    q = new SynchronousQueue<>();
+
+    Producer p = new Producer(q);
+    Consumer c1 = new Consumer(q);
+    Consumer c2 = new Consumer(q);
+    new Thread(p).start();
+    new Thread(c1).start();
+    new Thread(c2).start();
+  }
+}
+```
 
 #### thread
 ##### thread start
