@@ -773,3 +773,12 @@ System.out.println("1일 전 : " + today); //05/12/2021 13:25:57
 cal.setTime(date);
 System.out.println(cal.getActualMaximum(Calendar.DAY_OF_MONTH)); //31
 ```
+
+##### LocalDateTime
+```
+LocalDateTime date1 = LocalDateTime.now();
+LocalDateTime date2 = date1.minusHours(2);
+LocalDateTime start = LocalDateTime.of(2023, Month.MAY, 15, 12, 0);
+long se = start.toEpochSecond(ZoneOffset.of(+9));
+LocalDateTime start2 = LocalDateTime.ofEpochSecond(se, 0, ZoneOffset.of(+9));
+```
