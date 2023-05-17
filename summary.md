@@ -381,7 +381,7 @@ for (int i = 0; i < 10; i++) {
 }
 fixedThreadPool.shutdown();
 ```
-##### callable & future
+##### callable & future (단건)
 ```
 ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -400,6 +400,61 @@ System.out.println(date);
 
 // 모든 작업이 종료하면 셧다운
 executorService.shutdown();
+```
+##### callable & future (목록)
+```
+public class CallableTest {
+  public static void main(String[] args) throws Exception {
+    int roomCount = 10;
+
+    List<Callable<Map<Integer, String>>> roomStatusJobs = new ArrayList<>();
+    for (int roomNo = 1; roomNo <= roomCount; roomNo++) {
+      roomStatusJobs.add(new RoomStatusTask(roomNo));
+    }
+
+    ExecutorService executorService = Executors.newFixedThreadPool(roomCount);
+    List<Future<Map<Integer, String>>> resultList = executorService.invokeAll(roomStatusJobs);
+
+    // 모든 작업이 완료될 때까지 블로킹 됨
+    for (Future<Map<Integer, String>> futureMap : resultList) {
+      futureMap.get().entrySet().forEach(entry -> {
+        System.out.println("roomNo:" + entry.getKey() + ", roomStatus:" + entry.getValue());
+      });
+    }
+
+    // 작업 완료 후 셧다운 
+    executorService.shutdown();
+  }
+}
+
+class RoomStatusTask implements Callable<Map<Integer, String>> {
+  private int roomNo;
+
+  public RoomStatusTask(final int roomNo) {
+    this.roomNo = roomNo;
+  }
+
+  @Override
+  public Map<Integer, String> call() {
+
+    Map<Integer, String> statusMap = new HashMap<>();
+    // 서비스 호출
+    String roomStatus = getRoomStatus(this.roomNo);
+
+    statusMap.put(this.roomNo, roomStatus);
+    return statusMap;
+  }
+
+  private String getRoomStatus(int roomNo) {
+    try {
+      System.out.println("Called Room Status, RoomNo = " + roomNo);
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    return roomNo + ": empty";
+  }
+}
 ```
 ##### lock
 ```
