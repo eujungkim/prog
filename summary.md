@@ -362,7 +362,7 @@ ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExe
 // 지정된 delay 후 일회성 실행
 executorService.schedule(() -> {
   // do something (예. 요청 후 기간 내 처리되었는지 체크 등등)
-}, infoMap.get(queueName).ProcessTimeout, TimeUnit.SECONDS);
+}, 5, TimeUnit.SECONDS);
 
 // initialDelay 후 period를 적용해 주기적 실행
 scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
