@@ -476,6 +476,39 @@ Lock writeLock = reentrantReadWriteLock.writeLock();
 #### process
 ##### Process
 ```
+public class ProcessTest {
+  public static void main(String[] args) throws Exception {
+
+    String javaHome = System.getProperty("java.home");
+    String javaBin = javaHome + File.separator + "bin" + File.separator + "java";
+    String classPath = System.getProperty("java.class.path");
+    String className = Target.class.getName();
+
+    List<String> command = new LinkedList<>();
+    command.add(javaBin);
+    command.add("-cp");
+    command.add(classPath);
+    command.add(className);
+    command.add("HELLO");
+
+    ProcessBuilder builder = new ProcessBuilder(command);
+    Process process = builder.start();
+    BufferedReader inStream = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    
+    String line = null;
+    while ((line = inStream.readLine()) != null) {
+      System.out.println(line);
+    }
+  }
+}
+
+public class Target {
+  public static void main(String[] args) {
+    System.out.println(args[0] + " RESULT");
+  }
+}
+```
+```
 public final class JavaProcess {
 
   private JavaProcess() {}        
