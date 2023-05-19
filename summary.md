@@ -472,7 +472,6 @@ Lock readLock = reentrantReadWriteLock.readLock();
 Lock writeLock = reentrantReadWriteLock.writeLock();
 ```
 
-
 #### process
 ##### Process
 ```
@@ -545,7 +544,7 @@ System.out.println(size);
 System.out.println(new String(buff));
 ```
 ```
-Process theProcess = Runtime.getRuntime().exec(command);
+Process theProcess = Runtime.getRuntime().exec(command.toArray(new String[] {}));
 BufferedReader inStream = new BufferedReader(new InputStreamReader( theProcess.getInputStream(),"euc-kr"));
 List<String> readData = new ArrayList<String>();
 String line = null;
