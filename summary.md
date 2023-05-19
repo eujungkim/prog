@@ -507,6 +507,7 @@ public class Target {
   }
 }
 ```
+##### JavaProcess 
 ```
 public final class JavaProcess {
 
@@ -535,23 +536,6 @@ public final class JavaProcess {
   // use : JavaProcess.exec(MyProcess.class, ins); // ins : List<String>
 }
 ```
-```
-Process process = new ProcessBuilder("./CODECONV","MESSAGE02").start();
-InputStream is = process.getInputStream();
-byte[] buff = new byte[9];
-int size = is.read(buff);
-System.out.println(size);
-System.out.println(new String(buff));
-```
-```
-Process theProcess = Runtime.getRuntime().exec(command.toArray(new String[] {}));
-BufferedReader inStream = new BufferedReader(new InputStreamReader( theProcess.getInputStream(),"euc-kr"));
-List<String> readData = new ArrayList<String>();
-String line = null;
-while ( ( line = inStream.readLine( ) ) != null ) {
-  readData.add(line);
-}
-```
 ##### Java Process run
 ```
 List<String> ins = new ArrayList<>();
@@ -571,6 +555,23 @@ Runnable a = new Runnable() {
   }			
 };
 new Thread(a).start();
+```
+```
+Process process = new ProcessBuilder("./CODECONV","MESSAGE02").start();
+InputStream is = process.getInputStream();
+byte[] buff = new byte[9];
+int size = is.read(buff);
+System.out.println(size);
+System.out.println(new String(buff));
+```
+```
+Process theProcess = Runtime.getRuntime().exec(command.toArray(new String[] {}));
+BufferedReader inStream = new BufferedReader(new InputStreamReader( theProcess.getInputStream(),"euc-kr"));
+List<String> readData = new ArrayList<String>();
+String line = null;
+while ( ( line = inStream.readLine( ) ) != null ) {
+  readData.add(line);
+}
 ```
 
 #### serialization
