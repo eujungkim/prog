@@ -874,3 +874,24 @@ LocalDateTime start = LocalDateTime.of(2023, Month.MAY, 15, 12, 0);
 long se = start.toEpochSecond(ZoneOffset.of(+9));
 LocalDateTime start2 = LocalDateTime.ofEpochSecond(se, 0, ZoneOffset.of(+9));
 ```
+##### String, 날짜 변황
+```
+// Calendar 이용
+Calendar cal = Calendar.getInstance();
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+Date date =  sdf.parse("2023-05-08");
+cal.setTime(date);
+cal.add(Calendar.YEAR, 3);  //년도 3증가
+cal.add(Calendar.MONTH, 3);  //월 3증가
+cal.add(Calendar.DATE, 3);  //일 3증가
+//calendar -> String 변환
+String strDate = sdf.format(cal.getTime());
+System.out.println(strDate); //2026-08-11
+
+// LocalDateTime 이용
+LocalDateTime start = LocalDateTime.of(2023, Month.MAY, 15, 12, 0);
+DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+String startFm = start.format(df); //2023-05-15 12:00:00.000
+LocalDateTime start2 = LocalDateTime.parse(startFm, df); //2023-05-15T12:00
+LocalDateTime start3 = start.plusDays(3); //2023-05-18T12:00
+```
