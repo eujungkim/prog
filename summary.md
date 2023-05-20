@@ -895,3 +895,18 @@ String startFm = start.format(df); //2023-05-15 12:00:00.000
 LocalDateTime start2 = LocalDateTime.parse(startFm, df); //2023-05-15T12:00
 LocalDateTime start3 = start.plusDays(3); //2023-05-18T12:00
 ```
+##### read csv file
+```
+List<List<String>> records = new ArrayList<>();
+try (BufferedReader br = new BufferedReader(new FileReader("book.csv"))) {
+  String line;
+  while ((line = br.readLine()) != null) {
+    String[] values = line.split(COMMA_DELIMITER);
+    records.add(Arrays.asList(values));
+  }
+}
+```
+
+#### AI
+https://www.baeldung.com/deeplearning4j
+https://recordsoflife.tistory.com/219
