@@ -895,6 +895,7 @@ String startFm = start.format(df); //2023-05-15 12:00:00.000
 LocalDateTime start2 = LocalDateTime.parse(startFm, df); //2023-05-15T12:00
 LocalDateTime start3 = start.plusDays(3); //2023-05-18T12:00
 ```
+#### csv
 ##### read csv file
 ```
 List<List<String>> records = new ArrayList<>();
@@ -906,6 +907,39 @@ try (BufferedReader br = new BufferedReader(new FileReader("book.csv"))) {
   }
 }
 ```
+##### write csv file
+```
+public class WriteCsvFileExample {
+  public String convertToCSV(String[] data) {
+    return Stream.of(data)
+      .map(this::escapeSpecialCharacters)
+      .collect(Collectors.joining(","));
+  }
+
+  public String escapeSpecialCharacters(String data) {
+    String escapedData = data.replaceAll("\\R", " ");
+    if (data.contains(",") || data.contains("\"") || data.contains("'")) {
+      data = data.replace("\"", "\"\"");
+      escapedData = "\"" + data + "\"";
+    }
+    return escapedData;
+  }
+}
+
+// write
+List<String[]> dataLines = new ArrayList<>();
+dataLines.add(new String[] 
+  { "John", "Doe", "38", "Comment Data\nAnother line of comment data" });
+dataLines.add(new String[] 
+  { "Jane", "Doe, Jr.", "19", "She said \"I'm being quoted\"" });
+File csvOutputFile = new File(CSV_FILE_NAME);
+try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+  dataLines.stream()
+    .map(this::convertToCSV)
+    .forEach(pw::println);
+}
+```
+#####
 
 #### AI
 https://www.baeldung.com/deeplearning4j
