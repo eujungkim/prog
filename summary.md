@@ -732,6 +732,7 @@ System.out.println(sb.toString());
 ```
 ##### format string
 ```
+// 참고 : Formatter
 String str = "teststring";
 int a = 12345;
 String format;
@@ -741,7 +742,7 @@ format = String.format("%-15s", str); // 왼쪽 정렬 => [teststring     ]
 format = String.format("%15d", a); // 숫자 포맷, String.format("%자릿수d", num) => [            123]
 format = String.format("%015d", a); // 앞에 0 삽입 => [000000000000123]
 format = String.format("%02d", a); // 입력 길이가 자릿수보다 길 경우 그대로 출력 => [12345]
-format = String.format("%80.3f", a); // 총 8자리, 앞에 0, 뒤에 3자리 소수점 반올림하여 출력
+format = String.format("%80.3f", 123.45); // 총 8자리, 앞에 0, 뒤에 3자리 소수점 반올림하여 출력
 ```
 ##### 2, 8, 16진수
 ```
