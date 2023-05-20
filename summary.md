@@ -822,6 +822,9 @@ String st2 = new String(bytes);
 ##### java command
 ```
 java -cp bin 패키지.메인클래스명 > 입력파일명
+// System property java.home, java.class.path 참고
+java -cp C:\sp_workspace\sp_java_test\mytest\bin;C:\sp_workspace\sp_java_test\lib\gson-2.8.6.jar; UtilTest
+java -cp C:\sp_workspace\java_test\mytest\bin; UtilTest > output.txt
 ```
 
 ##### calendar
