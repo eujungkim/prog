@@ -1,8 +1,10 @@
 # Cloud
 - Cloud
-  - AWS Document(https://docs.aws.amazon.com)
-  - GCP Document(https://docs.microsoft.com/en-us/learn/, https://www.microsoft.com/handsonlabs)
-  - Azure Document(https://cloud.google.com/docs/)
+  - AWS Document (https://docs.aws.amazon.com)
+    - https://aws.amazon.com/ko/
+  - GCP Document (https://cloud.google.com/docs/)
+  - Azure Document (https://docs.microsoft.com/en-us/learn/, https://www.microsoft.com/handsonlabs)
+    - https://azure.microsoft.com/ko-kr 
 
 - AWS Document
   - Compute > EC2, EC2 Image Builder, Lambda
