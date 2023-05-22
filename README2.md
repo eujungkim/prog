@@ -134,9 +134,10 @@
 - RNN 성능 보완
   - LSTM(Long-short term memory)
     - 과거 정보 중 중요한 것은 기억하고, 불필요한 것은 잊어버리도록 스스로 조절 가능한 RNN 유닛
-    - forget gate(불필요한 과거 정보 잊기)
-    - input gate(현재 정보를 얼마나 반영할지 결정)
-    - output gate(현재 시점에 연산된 최종 정보를 다음 시점에 얼마나 넘길지 결정)
+    - ![image](https://github.com/eujungkim/prog/assets/7552395/ad2d2ba1-99c3-4fb4-b147-00f72050a221)
+    - A : forget gate(불필요한 과거 정보 잊기)
+    - B : input gate(현재 정보를 얼마나 반영할지 결정)
+    - C : output gate(현재 시점에 연산된 최종 정보를 다음 시점에 얼마나 넘길지 결정)
     - GRU(Gated Recurrent Unit)도 유사. 기본 RNN은 거의 사용하지 않고 LSTM, GRU 사용
 - 활용 사례 : 태양광 에너지 발전량 예측, 텍스트 문장 번역
 ## 6편
