@@ -300,6 +300,7 @@ AutoML
   - NAS도 Meta Learner(어떤 구조의 신경망을 만들지)와 Learner(본 과제를 수행하는 AI 모델)로 이루어짐
   - Meta Learner는 RNN과 강화학습을 접목한 형식으로 구성
   - Meta Learner는 Learner의 인공신경망 아키텍처의 구성을 결정하며, Learner의 태스크 수행 결과를 보상으로 활용한다
+  - ![image](https://github.com/eujungkim/prog/assets/7552395/08cc8b53-7e88-4466-8eed-44e3eb9f4467)
   - 진화 알고리즘이나 경사하강법을 기반으로 한 NAS 방식도 있다
 - AutoML
   - 일반적으로 사람이 고민한 모델 이상의 성능
