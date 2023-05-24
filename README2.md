@@ -190,7 +190,7 @@
   - 컴퓨터 비전 : 이미지를 입력 데이터로 처리하는 경우 이미지넷(120만장, 1000개 카테고리) 데이터로 학습된 모델에 Transfer Learning을 적용하여 좋은 성능을 낼 수 있음
   - 자연어 이해(NLU) : KorQuAD (자사, 한국어 표준 질의응답 데이터)
 ## 8편
-AI 사전학습 및 자기주도학습 (Pre-Training, Self-supervised Learning)
+AI 사전학습 및 자기지도학습 (Pre-Training, Self-supervised Learning)
 - 사전학습 모델
   - 전이 학습을 염두에 두고 다방면으로 활용할 수 있는 모델을 미리 만들어놓는 것
   - 여러 타스크에 활용하기 위해 여러 지식을 두루두루 학습해놓은 인공지능
@@ -202,12 +202,15 @@ AI 사전학습 및 자기주도학습 (Pre-Training, Self-supervised Learning)
   - 언어 데이터에 대한 사전학습 : 무난하게 활용하기 좋은 데이터는 위키피디아, 나무위키, 세종말뭉치(국립국어원)
 - Self-Supervised Learning(자가지도학습)
   - 데이터는 많은데 라벨(인공지능이 입력 데이터를 제공받으면 추론해야 하는 결과)이 없는 경우
+  - 주로 사전학습에 이용되며, 이렇게 학습한 모델을 후속 과제로 Transfer Learning을 하면 일반적으로 좋은 성능을 보인다
   - 인공지능 모델 학습 방법
     - Supervised Learning(지도학습) : 정답이 달린 데이터로 모델 학습
     - Semi-Supervised Learning(반지도학습) : 정답이 있는 데이터, 없는 데이터를 섞어서 학습
     - Unsupervised Learning(비지도학습) : 정답이 달리지 않은 데이터로 모델 학습
   - Self-Supervised Learning : 사람이 만들어주는 정답 라벨이 없어도 기계가 시스템적으로 자체 라벨을 만들어 사용하는 학습 방법
     - Self-Supervised Learning 후 Transfer Learning을 하면 일반적으로 좋은 성능
+    - 예. 원본 이미지를 임의로 회전시켜 카테고리를 맞추도록 라벨을 기계적으로 자체 부여
+    - 예. 원본 텍스트의 일부를 임의로 가리고 가려진 키워드를 맞추도록 라벨을 기계적으로 자체 부여
   - Google BERT(Bidirectional Encoder Representations from Transformers)
     - Self-Supervised Learning 기법으로 사전학습을 하고 다양한 태스크에 Transfer Learning을 할 수 있는 대표적인 예
     - 자연어처리 연구 패러다임을 전환한 계기가 된 모델
