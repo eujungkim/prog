@@ -292,6 +292,8 @@ AutoML
     - Meta Learner model : Learner model이 학습되는 것을 도와줌 (메타학습, Learn to Learn)
     - Learner model : 성능 개선을 위한 피드백 전달
     - Meta Learner는 대부분 RNN과 강화학습을 활용하여 최적의 하이퍼파라미터를 탐색
+    - ![image](https://github.com/eujungkim/prog/assets/7552395/63a296a4-33b2-4519-bf7a-faaf694bc21d)
+    - Meta Learner가 수행하는 학습에 대해 메타 학습, Learn to Learn이라고 표현함
 - 아키텍처 탐색 자동화
   - 아키텍처 : 모델을 이루는 구조
   - 딥러닝의 경우 인공신경망을 활용하므로, NAS(Neural Architecture search)라고 부른다
