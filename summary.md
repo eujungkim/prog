@@ -132,6 +132,94 @@ void fileSearchAll(String path) {
   }
 }
 ```
+##### FileWatch
+```
+package multithread;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.util.HashMap;
+import java.util.Map;
+
+public class FileChangeDetector {
+    public static void main(String[] args) throws IOException {
+        String directoryPath = "data"; // 감지할 디렉토리 경로 설정
+
+        // 디렉토리 감시
+        WatchService watchService = FileSystems.getDefault().newWatchService();
+        Path directory = Paths.get(directoryPath);
+        directory.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
+
+        System.out.println("파일 변경 감지 중...");
+        Map<String, Long> cur = new HashMap<>();
+
+        while (true) {
+            WatchKey key;
+            try {
+                key = watchService.take(); // 변경 이벤트 대기
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            for (WatchEvent<?> event : key.pollEvents()) {
+                WatchEvent.Kind<?> kind = event.kind();
+
+                if (kind == StandardWatchEventKinds.OVERFLOW) {
+                    continue; // 오버플로우 이벤트 무시
+                }
+
+                // 변경된 파일 경로 가져오기
+                WatchEvent<Path> ev = (WatchEvent<Path>) event;
+                Path changedFilePath = directory.resolve(ev.context());
+                
+                File file = changedFilePath.toFile();                
+                RandomAccessFile rf = new RandomAccessFile(file, "rw");
+                
+                long length = file.length();
+                long before = cur.getOrDefault(file.getAbsolutePath(), 0l);
+                cur.put(file.getAbsolutePath(), length);
+                
+                String diff = getDiffContent(before, length, rf);
+                
+                // 변경된 파일 내용 출력
+                System.out.println("변경된 파일: " + changedFilePath + " " + file.length());
+                //printFileContent(changedFilePath.toFile());
+                System.out.println(diff);
+            }
+
+            boolean valid = key.reset(); // WatchKey 재사용
+            if (!valid) {
+                break; // 감시 중지
+            }
+        }
+    }
+    
+    private static String getDiffContent(long start, long end, RandomAccessFile rf) throws IOException {
+    	byte[] data = new byte[Long.valueOf(end - start).intValue()];
+    	rf.seek(start);
+    	rf.read(data);
+    	rf.close();
+    	return new String(data);
+    }
+
+    private static void printFileContent(File file) throws IOException {
+        // 파일 내용 출력
+        System.out.println("파일 내용:");
+        Files.lines(file.toPath()).forEach(System.out::println);
+        System.out.println();
+    }
+}
+```
 
 #### convert
 ##### gson
