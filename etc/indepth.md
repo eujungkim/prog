@@ -8,6 +8,7 @@
 - 파일 포인터에서 시작하여 바이트 단위로 읽기 또는 쓰기를 수행할수있다.
 - 읽거나 쓴 바이트 수만큼 파일 포인터가 이동한다.
 - 읽기 모드 또는 읽기/쓰기 모드로 생성할 수 있다.
+
 ### WatchService
 - WatchService 인터페이스는 특정 디렉토리를 감시하고 변경 이벤트 발생시, 지정한 액션을 수행하도록 도와준다.
 - callback 메소드를 제공하지 않으며 blocking, non-blocking 방식의 polling 메소드를 제공함
@@ -27,6 +28,7 @@
   - https://www.baeldung.com/java-watchservice-vs-apache-commons-io-monitor-library
   - WatchService는 OS에 의해 trigger 되므로 파일 시스템에 대한 polling을 수행하지 않음 vs Commons IO는 polling을 수행하므로 CPU 사용
   - WatchService는 OS event driven이므로 빨리 처리하지 않을 경우 event overflow 발생 가능성, Commons는 OS event를 사용하지 않으므로 무관
+
 ### ExecutorService, ScheduledExecutorService
 - 스레드풀과 작업 할당을 위한 API 제공
 - ExecutorService의 가장 좋은 사용 사례는 "하나의 작업에 하나의 스레드"라는 체계에 따라 트랜잭션이나 요청과 같은 독립적인 작업을 처리하는 것이다.
@@ -59,6 +61,7 @@ scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit
   - 애플리케이션이 작업을 효율적으로 실행하는 데 필요한 스레드 수를 결정하는 것은 매우 중요하다.
   - 스레드 풀이 너무 크면 대부분 대기 모드에 있는 스레드를 생성하는 데 불필요한 오버헤드가 발생한다.
   - 너무 적으면 queue에 있는 작업에 대한 긴 대기 시간으로 인해 응용 프로그램이 응답하지 않는 것처럼 보일 수 있다.
+
 ### java.util.concurrent.BlockingQueue
 - 동시 생산자, 소비자 문제 해결
 - Multithreaded Producre-Comsumer 구현
@@ -80,7 +83,86 @@ BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>(10);
   - offer(E e, long timeout, TimeUnit 단위) – 요소를 대기열에 삽입하려고 시도하고 지정된 시간 초과 내에 사용 가능한 슬롯을 기다린다.
   - take() – 대기열의 헤드 요소를 기다렸다가 제거합니다. 큐가 비어 있으면 요소가 사용 가능해질 때까지 차단하고 기다린다.
   - poll(long timeout, TimeUnit 단위) – 요소를 사용할 수 있게 되는 데 필요한 경우 지정된 대기 시간까지 대기하면서 대기열의 헤드를 검색하고 제거한다. 시간 초과 후 null을 반환한다.
+- 종류
+  - ArrayBlockingQueue : 초기에 크기 지정, 생성 후 크기 변경 불가, FIFO
+  - LinkedBlockingQeueu : capacity를 초기에 정해주지 않는경우 integer.MAX_VALUE로 자동설정, FIFO
+  - PriorityBlockingQueue : PriorityQueue와 같은 정렬방식을 지니는 용량제한 없는 Queue, OOM 주의
+  - SynchronousQueue : Item 저장 공간이 없기 때문에 insert 작업이 다른 스레드의 remove 작업과 반드시 동시에 발생
 - https://www.baeldung.com/java-blocking-queue
+
+### concurrent collection
+```
+// List
+List<Message> list = Collections.synchronizedList(new ArrayList<Message>());
+List<String> list1 = new CopyOnWriteArrayList();
+// Queue
+Queue<String> queue = new ConcurrentLinkedQueue<>();
+// Set
+Set<String> set0 = Collections.synchronizedSet(new HashSet<String>());
+Set<String> set2 = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
+Set<String> set3 = ConcurrentHashMap.newKeySet();
+// SortedSet
+Set<String> set1 = Collections.synchronizedSortedSet(new TreeSet<String>()); 
+Set<String> set2 = new ConcurrentSkipListSet<>();
+// Map
+Map<String, List<Message>> queueMap = new ConcurrentHashMap<>();
+```
+
+### Process vs Thread
+#### Process
+- 의미
+  - 컴퓨터에서 연속적으로 실행되고 있는 컴퓨터 프로그램
+  - 메모리에 올라와 실행되고 있는 프로그램의 인스턴스(독립적인 개체)
+  - 운영체제로부터 시스템 자원을 할당받는 작업의 단위
+- 특징
+  - 프로세스는 각각 독립된 메모리 영역(Code, Data, Stack, Heap의 구조)을 할당받는다.
+  - 기본적으로 프로세스당 최소 1개의 스레드(메인 스레드)를 가지고 있다.
+  - 각 프로세스는 별도의 주소 공간에서 실행되며, 한 프로세스는 다른 프로세스의 변수나 자료구조에 접근할 수 없다.
+  - 한 프로세스가 다른 프로세스의 자원에 접근하려면 프로세스 간의 통신(IPC, inter-process communication)을 사용해야 한다. 예) 파이프, 파일, 소켓 등을 이용한 통신 방법 이용
+#### Thread
+- 의미
+  - 프로세스 내에서 실행되는 여러 흐름의 단위
+  - 프로세스의 특정한 수행 경로
+  - 프로세스가 할당받은 자원을 이용하는 실행의 단위
+- 특징
+  - 스레드는 프로세스 내에서 각각 Stack만 따로 할당받고 Code, Data, Heap 영역은 공유한다.
+  - 스레드는 한 프로세스 내에서 동작되는 여러 실행의 흐름으로, 프로세스 내의 주소 공간이나 자원들(힙 공간 등)을 같은 프로세스 내에 스레드끼리 공유하면서 실행된다.
+  - 같은 프로세스 안에 있는 여러 스레드들은 같은 힙 공간을 공유한다. 반면에 프로세스는 다른 프로세스의 메모리에 직접 접근할 수 없다.
+  - 각각의 스레드는 별도의 레지스터와 스택을 갖고 있지만, 힙 메모리는 서로 읽고 쓸 수 있다.
+  - 한 스레드가 프로세스 자원을 변경하면, 다른 이웃 스레드(sibling thread)도 그 변경 결과를 즉시 볼 수 있다.
+- 장단점
+  - 프로그램 수행이 계속되는 것을 허용함으로써 사용자에 대한 응답성을 증가시킨다
+  - Process 내 Thread 간 메모리 공유 (손쉬운 자원 공유)
+  - Process 생성에 비해 경제적
+  - Thread 간 영향으로 인한 안정성 저하, 동기화 이슈, 결과 예측 및 디버깅이 어렵다
+
+### synchronization (동기화)
+다중 thread 환경에서 공통된 자원에 접근하고자 할 때 발생하는 순서와 동시성을 배제하기 위한 목적
+```
+// Lock 사용
+ReentrantLock lock = new ReentrantLock();
+lock.lock()
+try {
+  ...
+} finally {
+  lock.unlock()
+}
+// synchronized 키워드 사용
+```
+
+
+
+### serialization, deserialization (직렬화, 역직렬화)
+
+### class loader
+
+### reflection
+
+### socket
+
+### async
+
+
 
 ---
 # title1
