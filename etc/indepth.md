@@ -27,7 +27,7 @@
   - https://www.baeldung.com/java-watchservice-vs-apache-commons-io-monitor-library
   - WatchService는 OS에 의해 trigger 되므로 파일 시스템에 대한 polling을 수행하지 않음 vs Commons IO는 polling을 수행하므로 CPU 사용
   - WatchService는 OS event driven이므로 빨리 처리하지 않을 경우 event overflow 발생 가능성, Commons는 OS event를 사용하지 않으므로 무관
-### ExecutorService
+### ExecutorService, ScheduledExecutorService
 - 스레드풀과 작업 할당을 위한 API 제공
 - ExecutorService의 가장 좋은 사용 사례는 "하나의 작업에 하나의 스레드"라는 체계에 따라 트랜잭션이나 요청과 같은 독립적인 작업을 처리하는 것이다.
 - ThreadPoll
@@ -59,6 +59,28 @@ scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit
   - 애플리케이션이 작업을 효율적으로 실행하는 데 필요한 스레드 수를 결정하는 것은 매우 중요하다.
   - 스레드 풀이 너무 크면 대부분 대기 모드에 있는 스레드를 생성하는 데 불필요한 오버헤드가 발생한다.
   - 너무 적으면 queue에 있는 작업에 대한 긴 대기 시간으로 인해 응용 프로그램이 응답하지 않는 것처럼 보일 수 있다.
+### java.util.concurrent.BlockingQueue
+- 동시 생산자, 소비자 문제 해결
+- Multithreaded Producre-Comsumer 구현
+- Unbounded Queue : capacity - Integer.MAX_VALUE
+  - Unbounded BlockingQueue를 사용하여 생산자-소비자 프로그램을 설계할 때 가장 중요한 점은 생산자가 대기열에 메시지를 추가하는 것처럼 소비자가 메시지를 빠르게 소비할 수 있어야 한다는 것이다. 그렇지 않으면 메모리가 가득 차서 OutOfMemory 예외가 발생하게 된다.
+```
+BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>();
+```
+- Bounded Queue
+  - 제한된 대기열을 사용하는 것은 동시 프로그램 설계의 좋은 방법이다.
+  - 이미 가득찬 대기열에 요소를 삽입하기 위해서는 소비자가 따라잡아서 대기열의 일부 공간을 사용할 수 있을 때까지 기다린다.
+```
+BlockingQueue<String> blockingQueue = new LinkedBlockingDeque<>(10);
+```  
+- 메소드
+  - add() – 삽입에 성공하면 true를 반환하고, 그렇지 않으면 IllegalStateException을 발생시킨다.
+  - put() - 지정된 요소를 대기열에 삽입하고 필요한 경우 여유 슬롯을 기다린다.
+  - offer() – 삽입이 성공하면 true를 반환하고, 그렇지 않으면 false를 반환한다.
+  - offer(E e, long timeout, TimeUnit 단위) – 요소를 대기열에 삽입하려고 시도하고 지정된 시간 초과 내에 사용 가능한 슬롯을 기다린다.
+  - take() – 대기열의 헤드 요소를 기다렸다가 제거합니다. 큐가 비어 있으면 요소가 사용 가능해질 때까지 차단하고 기다린다.
+  - poll(long timeout, TimeUnit 단위) – 요소를 사용할 수 있게 되는 데 필요한 경우 지정된 대기 시간까지 대기하면서 대기열의 헤드를 검색하고 제거한다. 시간 초과 후 null을 반환한다.
+- https://www.baeldung.com/java-blocking-queue
 
 ---
 # title1
