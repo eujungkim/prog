@@ -46,6 +46,25 @@
 - Session Clustering
 - 업무 요건(특성)을 고려한 솔루션 검토/적용
 
+### CQRS
+- CQRS(Command Query Responsibility Segregation)
+- 명령(Command)와 조회(Query)를 분리하는 패턴
+- 명령(CUD) 모델과 조회(R) 모델을 사용한다. 두 모델을 서로 다른 스키마와 데이터 저장소를 사용할 수 있다.
+- 성능 분석 대상
+  - 서비스 호출 빈도에 따른 서비스 활용도
+  - 반복 호출되는 SQL을 확인하여 CQRS, 캐싱 적용 대상이 있는지
+- CQRS Write-Thought 패턴
+  - 데이터를 추가하거나 업데이트할 때 DB와 NoSQL DB(Redis 등)에 동시에 반영한다.
+  - 데이터 조회시 DB는 사용하지 않고 NoSQL DB만 사용한다.
+  - 장점
+    - Read Data를 활용하여 DB 부하 감소
+    - NoSQL DB를 활용하여 조회 성능 개선
+    - RDB 제어권을 어플리케이션에서 처리 가능
+  - 단점
+    - 데이터가 변경될 때마다 CUD가 2번 발생
+    - 조회시 NoSQL DB Miss가 발생하면 이를 보상하는 것이 힘들다 (다시 DB에서 조회하여 NoSQL DB에 쓰기 작업을 해야 함)
+
+
 ### design pattern
 - 어댑터 패턴(Adapter Pattern)
   - 호출당하는 쪽의 메소드를 호출하는 쪽의 코드에 대응하도록 중간에 변환기를 통해 호출하는 패턴
