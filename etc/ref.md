@@ -86,6 +86,11 @@
     - 예) 새로운 차별화 서비스를 개발하는 스타트업, 넷플릭스 서비스와 같은 유니크 서비스 구축 프로젝트
   - Swagger(REST API Documentation Tool), Data Hub(Metadata Management)
 
+### 빅데이터 관련 솔루션
+#### 작업관리
+##### Airflow
+
+
 ### design pattern
 - 어댑터 패턴(Adapter Pattern)
   - 호출당하는 쪽의 메소드를 호출하는 쪽의 코드에 대응하도록 중간에 변환기를 통해 호출하는 패턴
