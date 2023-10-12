@@ -38,6 +38,13 @@
 - 조회 성능 향상을 위한 CQRS 패턴 설계
 - 배포빈도와 독립성이 높은 서비스는 단일 DB
 - 1Service-1DataSource 기본 정책에 상호 API 통신
+### 기타 주요 고려 사항
+-JWT 토큰을 이용한 검증 요청 및 검증 결과 리턴(사용자 정보), 인증 정보를 rest 전문 헤더에 추가하여 api 호출
+- swagger를 이용한 api 명세 제공, api 권한 관리
+- 미인증자 접근 통제 정책(원칙) 정의
+- JPA
+- Session Clustering
+- 업무 요건(특성)을 고려한 솔루션 검토/적용
 
 ### design pattern
 - 어댑터 패턴(Adapter Pattern)
