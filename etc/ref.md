@@ -120,8 +120,30 @@
 - 브로커 기반 비동기 메세지 통신
   - 서비스 사이에 브로커 존재
   - 장점 : loose coupling(느슨한 결합)으로 상호의존성 최소화(독립성, 지속성), 유연한 커뮤니케이션
-  - 단점 : 추가 운영 인프라 설치 구성, 유지 관리 필요, 성능에 대한 병목
-  - 
+    - 느슨한 결합 : producer와 consumer가 독립적으로 행동, 영향도가 크지 않음
+    - 확장성 : 독립적 구성으로 producer와 consumer가 원하는대로 확장 가능
+    - 탄력성 : 메세지는 메세지 규에 남아 있고, comsumer 서비스가 재시작되면 추가 설정이나 작업 수행 없이 메세지를 처리할 수 있음
+    - 보장성 : 메세지 큐는 보관되는 메세지가 결국 consumer에게 전달된다는 안전한 데이터 보장을 제공함
+  - 단점 : 추가 운영 인프라 설치 구성, 유지 관리 필요, 성능에 대한 병목 가능성(업무 요건에 따라 적절한 구조설계 및 튜닝 필요), 단일 장애점 가능성(가용성 설계가 필요)
+    - 메세지 큐에 장애가 발생한 경우 메세지 유실, 어플리케이션으로 장애 전파 등의 문제 가능성 (CDC 고려)
+  - 종류 : Apach Kafka, RabbitMQ, ActiveMQ, AWS Kinesis 또는 AWS SQS
+  - 메세지 사이즈 제약(예. Kafka 1MB, RabbitMQ 제약없음), 퍼포먼스(예. Kafka 초당 100만건, RabbitMQ 1만건 이하) 등 비지니스 요건에 맞게 적절한 판단을 해야한다.
+- Brokerless 비동기 메세지 통신
+  - 서비스끼리 직접 메세지 통신
+  - 장점 : 아키텍처 단순화, 확장성 용이, 자체적으로 메세지를 routing하고 처리함으로써 유연성이 높음
+  - 단점 : 순서를 보장 못 할 수 있음
+- CDC (Change Data Capture)
+  -  변경 데이터 관리를 통해 트랜잭션의 일관성을 확보하기 위한 패턴, MSA 분산환경에서 매우 중요한 데이터 확보 방안
+  -  통상 메세지 브로커 앞단에 위치
+  -  종류
+    -  Debezium : DB 변경분을 kafka broker에 발생하는 플러그인
+    -  LinkedIn Databus : 링크드인에서 개발한 Oracle 데이터 한정 트랜잭션 로그를 수집하여 변경분을 이벤트로 발생하는 오픈소스 라이브러리
+    -  DynamoDB Streams : 최근 24시간 동안 DynamoDB 테이블에 적용된 변경분(CUD)을 시간순으로 정렬해서 가지고 있으며, 변경분에 대한 이벤트를 발생하는 AWS 라이브러리
+    -  Eventuate Tram : MySQL binlog 프로토콜, Postgres WAL, 폴링을 응용해 OUTBOX 테이블의 변경분을 읽어 kafka로 이벤트를 발생하는 오픈소스 트랜잭션 메시징 라이브러리 (Eventuate.io)
+  - 처리 절차
+    - publish service에서 도메인 로직을 처리하고, 처리된 데이터는 Eventuate Tram F/W를 사용하여 이벤트 형태로 OUTBOT Table에 순차적으로 저장
+    - CDC Instance는 지정된 OUTBOX Table의 변화가 감지되면 감지된 데이터를 순차적으로 읽어 메세지 브로커(Kafka, RabbitMQ 등)에 전달
+    - Consumer service는 메시지 브로커에서 관련 topic을 구독하여 유입되는 데이터를 처리
 
 ### design pattern
 - 어댑터 패턴(Adapter Pattern)
