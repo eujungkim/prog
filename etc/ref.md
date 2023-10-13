@@ -145,6 +145,15 @@
     - CDC Instance는 지정된 OUTBOX Table의 변화가 감지되면 감지된 데이터를 순차적으로 읽어 메세지 브로커(Kafka, RabbitMQ 등)에 전달
     - Consumer service는 메시지 브로커에서 관련 topic을 구독하여 유입되는 데이터를 처리
 
+### 미들웨어 구성
+#### Web 서버
+- 설계시 고려 사항 : 적절한 core 할당
+#### WAS memory
+- 설계시 고려 사항 : WAS 인스턴스에 생성되는 전체 work thread가 최소 XXMB를 할당받을 수 있도록 heap memory 크기 할당
+- 비고 : HTTP, AJP13 listener, connector용 thread pool 최대값의 총합
+#### WAS thread 수
+- 설계시 고려사항 : DB connection pool의 최대값은 WAS 인스턴스 전체 thread 개수의 40~60% 산정 (최소값은 최대값의 25~30%로 산정)
+
 ### design pattern
 - 어댑터 패턴(Adapter Pattern)
   - 호출당하는 쪽의 메소드를 호출하는 쪽의 코드에 대응하도록 중간에 변환기를 통해 호출하는 패턴
