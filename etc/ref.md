@@ -151,7 +151,7 @@
 #### WAS memory
 - 설계시 고려 사항 : WAS 인스턴스에 생성되는 전체 work thread가 최소 XXMB를 할당받을 수 있도록 heap memory 크기 할당
 - 비고 : HTTP, AJP13 listener, connector용 thread pool 최대값의 총합
-#### WAS thread 수
+#### WAS thread 수)
 - 설계시 고려사항 : DB connection pool의 최대값은 WAS 인스턴스 전체 thread 개수의 40에서 60%로 산정 (최소값은 최대값의 25에서 30%로 산정)
 
 ### design pattern
