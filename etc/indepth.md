@@ -136,6 +136,10 @@ Map<String, List<Message>> queueMap = new ConcurrentHashMap<>();
   - Process 생성에 비해 경제적
   - Thread 간 영향으로 인한 안정성 저하, 동기화 이슈, 결과 예측 및 디버깅이 어렵다
 
+### ProcessBuilder
+- ProcessBuilder 클래스는 운영 체제 프로세스를 만들고 구성하는 메서드를 제공한다.
+- 각 ProcessBuilder 인스턴스를 사용하면 프로세스 속성 모음을 관리할 수 있다. 그런 다음 해당 속성을 사용하여 새 프로세스를 시작할 수 있다.
+
 ### synchronization (동기화)
 다중 thread 환경에서 공통된 자원에 접근하고자 할 때 발생하는 순서와 동시성을 배제하기 위한 목적
 ```
