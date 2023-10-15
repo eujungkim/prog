@@ -163,6 +163,8 @@ Java 직렬화는 Java 객체를 바이트 스트림으로 변환하고, 이 바
 - 객체의 모든 상태를 보존하기 때문에 객체의 크기가 커질 수 있으므로 크기를 고려해야 한다.
 - 객체의 모든 상태를 저장하므로 성능이 저하될 수 있다.
 - Java 직렬화를 사용하여 악성코드를 전파할 수 있으므로 보안 위험을 고려해야 한다.
+관련 Stream
+- ObjectInputStream, ObjectOutputStream, FileInputStream, FileOutputStream
 
 ### class loader
 Java ClassLoader는 Java 애플리케이션의 클래스를 실행 중에 로드하고 관리하는 역할을 한다. ClassLoader는 Java 애플리케이션의 일부이며, Java Runtime Environment (JRE)에 포함되어 있다.
