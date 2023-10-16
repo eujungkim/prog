@@ -72,7 +72,7 @@
 알고리즘별 구현체를 Config 컴포넌트를 이용해 설정으로 관리한다.
 <br>
 Config 컴포넌트는 별도의 설정 파일을 통해 시스템 전반의 설정을 관리하며, reload 수행시 config에 대한 조회를 block함으로써 일관성을 유지한다.
-![image](https://github.com/eujungkim/prog/assets/7552395/72e2be63-96ab-424b-a278-94209d7f0927)
+![image](https://github.com/eujungkim/prog/assets/7552395/39158fcf-14ca-4736-a625-1a1089b420a7)
 
 - 제약 사항
   - 클라이언트 영역에도 동일하게 압축 해제 및 복호화 매커니즘이 적용되어 있어야 한다.
@@ -139,20 +139,20 @@ Config 컴포넌트는 별도의 설정 파일을 통해 시스템 전반의 설
   - com.google.common.hash의 File.asByteSource(file).hash(hashFunction) 사용
   - 대용량 파일에 대한 성능 비교 및 사용 편의성을 고려하여 선정
 
-![슬라이드9](https://github.com/eujungkim/prog/assets/7552395/84b2fd83-637a-4e55-9c1c-c87b241ca7f9)
-![슬라이드10](https://github.com/eujungkim/prog/assets/7552395/f7f8ea06-f5f3-4def-bca2-ae8639d29c74)
+![슬라이드9](https://github.com/eujungkim/prog/assets/7552395/87846555-13b5-42c1-8e06-c26dc3b9d818)
+![슬라이드10](https://github.com/eujungkim/prog/assets/7552395/34c4de52-f10d-4974-b143-fe078da3911e)
 
 ---
-![슬라이드12](https://github.com/eujungkim/prog/assets/7552395/0117a6a6-3b91-4a67-a891-ead568992fda)
-![슬라이드13](https://github.com/eujungkim/prog/assets/7552395/647f75b6-67f3-4e2c-a10a-158335ffc5c3)
-![슬라이드14](https://github.com/eujungkim/prog/assets/7552395/dea1aeac-10cf-4ff4-9613-f2c6755514c2)
-![슬라이드15](https://github.com/eujungkim/prog/assets/7552395/ab47cddf-cf1d-4556-97cd-25050ee7b1e7)
-![슬라이드16](https://github.com/eujungkim/prog/assets/7552395/eae5f88d-7c23-46c4-ac00-17ab83bbeeab)
+![슬라이드12](https://github.com/eujungkim/prog/assets/7552395/d575b4bf-58c6-4804-b758-ead6768e47fd)
+![슬라이드13](https://github.com/eujungkim/prog/assets/7552395/38889368-c911-4745-b3c3-10115717d819)
+![슬라이드14](https://github.com/eujungkim/prog/assets/7552395/aa3bf3ab-46f6-410d-879e-2b6c6ca97ba1)
+![슬라이드15](https://github.com/eujungkim/prog/assets/7552395/fafa6e78-5c62-4f4a-aa82-e4243829248c)
+![슬라이드16](https://github.com/eujungkim/prog/assets/7552395/eb7dda71-d41c-424d-9395-fa8964ca9fb4)
 
 https://eventuate.io/docs/manual/eventuate-tram/latest/cdc-configuration.html
 
-![슬라이드17](https://github.com/eujungkim/prog/assets/7552395/f680a5e6-1978-4fbc-a547-40c84331889d)
-![슬라이드18](https://github.com/eujungkim/prog/assets/7552395/900cf2c9-5a13-49a4-989d-b17982de50cb)
+![슬라이드17](https://github.com/eujungkim/prog/assets/7552395/1b47d25a-fb17-486b-9c98-c86b63937848)
+![슬라이드18](https://github.com/eujungkim/prog/assets/7552395/eda479a5-aea1-4f65-a0bc-ad9296b9009f)
 
 ---
 https://www.ibm.com/cloud/architecture/architectures/workflowDomain/reference-architecture/
@@ -170,6 +170,6 @@ https://www.ibm.com/cloud/architecture/architectures/workflowDomain/reference-ar
 11. 선택적으로 워크플로 애플리케이션은 AI 서비스를 호출하여 사용자를 지원하거나 비즈니스 데이터를 강화할 수 있습니다.
 12. 대부분의 워크플로 애플리케이션은 내부용이지만 특정 워크플로에는 보안 에지 서비스를 통해 인터넷을 통해 워크플로 솔루션과 상호 작용할 수 있는 외부 참가자나 시스템이 포함됩니다.
 
-![image](https://github.com/eujungkim/prog/assets/7552395/4e0ea8df-f114-4a54-83b8-9c42e41a8dd2)
+![image](https://github.com/eujungkim/prog/assets/7552395/d00ec7e8-542a-4546-83f9-d2337790de66)
 
 
