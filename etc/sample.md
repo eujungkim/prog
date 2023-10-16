@@ -10,7 +10,7 @@
 4. 4~5개, 신기술 적용 포인트, 기술/시장 경쟁력, 기술/운영적 측면, 추가하고 싶은 기능, 대체할 수 있는 기술 (kafka, web, socket, msa 등)
 
 
-![슬라이드21](https://github.com/eujungkim/prog/assets/7552395/6e6f6b3d-a056-487d-80a3-7b4052fff315)
-![슬라이드22](https://github.com/eujungkim/prog/assets/7552395/5950aac5-78ab-41b2-a091-ab195432696e)
-![슬라이드23](https://github.com/eujungkim/prog/assets/7552395/05ab1d79-868c-4177-ac36-5c8b338cc901)
-![슬라이드24](https://github.com/eujungkim/prog/assets/7552395/7495e8d4-ffed-4fe5-803b-c35bb244d041)
+![슬라이드21](https://github.com/eujungkim/prog/assets/7552395/05a08256-3dae-4742-aee0-e3663f3262f5)
+![슬라이드22](https://github.com/eujungkim/prog/assets/7552395/43b76cd2-6331-4a9b-a754-73565cc80e46)
+![슬라이드23](https://github.com/eujungkim/prog/assets/7552395/e5b5ddd4-df1d-4e60-9712-c551a980ffa4)
+![슬라이드24](https://github.com/eujungkim/prog/assets/7552395/3eb06c54-6e26-483a-9b05-0c668b6192ff)
