@@ -172,4 +172,11 @@ https://www.ibm.com/cloud/architecture/architectures/workflowDomain/reference-ar
 
 ![image](https://github.com/eujungkim/prog/assets/7552395/d00ec7e8-542a-4546-83f9-d2337790de66)
 
+---
+### workflow
 
+![275262484-a7eeaaf2-95f0-4f52-8d7a-bbbe51aa3685](https://github.com/eujungkim/prog/assets/7552395/7953214d-5315-4bea-9a83-1f4eabf51f08)
+![275262062-4577e266-3544-4c33-82fc-24773210d0cc](https://github.com/eujungkim/prog/assets/7552395/2bc7e0be-ad78-4a96-be88-d4fc292a76b4)
+![275261574-f68a90fd-c14d-4b22-b146-0bffc35cd311](https://github.com/eujungkim/prog/assets/7552395/9a8d7c05-cbc6-4905-93e4-96b1db912e31)
+![275261291-00aad7fe-a62a-4dd2-8483-5f6630e91730](https://github.com/eujungkim/prog/assets/7552395/1f82b576-0f88-49ad-9404-a3280c2997c2)
+![275259522-5e7bb9fd-b92d-4b5d-a44b-5d3d2afbe89f](https://github.com/eujungkim/prog/assets/7552395/7701bef0-3660-48da-acc3-608684a84b2d)
