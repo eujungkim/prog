@@ -271,7 +271,9 @@ pub sub 패턴은 발행자(publisher)와 구독자(subscriber)로 구성된 소
 
 ### async
 
-
+### connection pool
+connection pool 설정 참고 : https://carrotweb.tistory.com/88
+- setTestOnBorrow
 
 ---
 # title1
