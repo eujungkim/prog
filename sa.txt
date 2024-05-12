@@ -1,0 +1,190 @@
+## MSA Outer
+. API Gateway, Service Mesh, Container, Backing Service, Telemetry, CI/CD
+. API Gateway
+  . 모든 API 요청의 단일 접점
+  . 공통 처리, Mediation, Aggregation 기능을 지원하는 API First Design 지원
+  . 목적 : API 일원화, 공통 기능 처리(Front와 Backend 매핑, 로깅, BFF 패턴 구현), 요청 변환
+  . 설계시 고려사항 : 인증/인가(API 토큰), 레거시 솔루션 연계, 유입량 제어
+  . 최근 추세 : Containerized (PaaS 내 구축하여 SPOF 방지)
+. Service Mesh
+  . Scalability를 지원하는 컨테이너 간 서비스를 손쉽게 Discovery 할 수 있도록 지원
+  . 서비스 전달 비율을 조율하여 다양한 배포방식과 장애를 차단
+  . 도입 목적 : 서비스 탐색, 장애 전파 차단, 배포 전략(유입량 조절을 통해 A/B, Canary 구현)
+  . 설계시 고려사항 : 서비스 디스커버리, Lock In, Metric 수집 기능(중복 적재 유의)
+  . 최근 추세 : 고유 기능 확장(API Gateway와 기능 중복에 의한 역할 분리)
+. Container Management
+  . 도입 목적 : 오케스트레이션, 라이프사이클 관리, 리소스 모니터링
+  . 설계시 고려사항 : Hybrid Cloud, Cluster 배치, Echo System 지원(Telemetry, Service Mesh, CI/CD 기능 제공 범위 검증)
+  . 최근 주세 : 기능 확대보다는 안정성과 성능 측면을 보강
+. Backing Service
+  . 데이터를 저장하거나, 서비스에 종속되지 않은 데이터에 대해 안정적 복제 환경 제공
+  . 비동기/캐시 설계, 데이터 동기화 방식 설계
+  . 도입 목적 : 약결합 구조, 분산 데이터 처리(순서보장, 복제 및 동기화), 탄력적인 확장
+  . 설계시 고려사항 : 비동기/개시 선정, 데이터베이스 타입, 데이터 동기화 설계
+  . 최근 추세 : 비지니스 관여 (Front End와 다이렉트 연결 구조, Kafka/Redis API를 활용한 비지니스 코드 확장)
+. CI/CD
+  . 서비스 출시를 앞당길 수 있는 핵심 영역, 고객 Pain Point가 가장 많은 영역
+  . 도입 목적 : 신속한 출시, 소스 코드 품질 향상, 테스트 자동화
+  . 설계시 고려사항 : 레거시 솔루션 연계, 긴급 배포/롤백, 빌드/배포 시간 단축(사전점검 방식 구현)
+  . 최근 추세 : 멀티 형상관리 연계 (Enterprise향 형상관리)
+. Telemetry
+  . 도입 목적 : 통합 대시보드(E2E, APM, SMS, CMP 등), 통합 로깅/추적, 자원 모니터링
+  . 설계시 고려사항 : 수집 대상, 방식, 컨테이너 적합 솔루션, 알림 처리 설계(장애 발생에 대한 빠른 인지 및 선대응 황경 구성)
+  . 최근 추제 : 통합 유지 관리 (CMP를 통한 운영환경 부담 감소)
+. Public Cloud DR
+  . 이미지 : Registry Replication, 운영환경에서 container image push 시 비동기 복제
+  . 소스파일 : Gitlab Mirroring, 운영환경에 Push시 준실시간 복제
+  . DB : MariaDB Replication, 운영 Master > Slave, DR Slave
+  . 스토리지 : AWS DataSync, 주기적 파일 복제(5분 권고)
+  . Git Ops : deployment yaml을 이용해 image registry에 복제된 이미지 배포
+
+## CI/CD
+. Plan, Code, Build, Test, Release, Deploy, Operate&Monitor
+. CI 목적 : 빌드 가능성 확인, 기능 정상 확인, 취약점 보완
+  . 파이프라인 : App 빌드, 단위 테스트, 정적 분석, 이미지 빌드
+. CD 목적 : 배포 가능성 확인, 배포 안정성, 가용성
+  . 파이프라인 : 이미지 빌드, 이미지 Scan, 배포 Signal, 배포
+
+## 디지털 채널
+. AM을 기반으로 한 API 중심의 Composable 아키텍처
+. Business Agility와 Reliability를 고려한 2-Core 아키텍처 (디지털 Business Core, Enterprise Core)
+
+## 점진적 이행
+. 인프라
+  . Openshift (단계별 워커노드 및 네임스페이스 분리)
+  . DB (단계별 DB서버 분리)
+  . 네트워크 및 보안 (워커노드 방화벽 선오픈 및 도메인, SSL 추가 등록)
+  . 상용 솔루션 라이센스 (임시 라이센스 추가 발급)
+. 빌드/배포
+  . Repository 분리
+
+## AWS와 On-Premise 간 통신
+. Direct Connect (DX)
+  . 전용선 단독 사용, 넓은 bandwidth과 속도 안전성, 큰 비용
+. Site-to-Site VPN
+  . 인터넷을 통한 VPN 연결, 전송 속도 지연
+. VIF (논리적 가상 인터페이스)
+  . Private VIF : VPC 내 VGW 사용하여 AWS와 On-Prem 간 네트워크
+  . Transit VIF : VPC를 TGW와 연동하여 AWS와 On-Prem 간 네트워크
+  . Public VIF : AWS Public Service와 On-Prem 간 네트워크
+. Direct Connect Sitelink : Direct Connect를 이용한 On-Premise 사이트 간 통신
+
+## CQRS Redis 캐싱
+. Command Query Responsibility Segregation (명령과 조회 분리)
+. 명령 모델과 조회 모델은 서로 다른 스키마와 데이터 저장소를 사용할 수 있다.
+. CQRS Write-Throught Pattern
+  . 데이터를 추가하거나 업데이트할 때 DB와 NoSQL DB에 동시 반영
+  . NoSQL DB에서만 Read
+  . 장점 : DB 부하 감소, 조회 성능 개선, RDB 제어권을 어플리케이션에서 처리 가능
+  . 단점 : CUD 2번 발생, 조회시 NoSQL DB Miss가 발생하면 보완 어려움
+  
+## Frontend MAS
+. Frontend 문제점 : 의존성, 빌드 속도, Agility, 장애 전파
+. Micro frontend
+  . 간단하고 분리된 코드베이스, 점진적 변화 가능, 독립 배포, 함께하는 팀(팀을 나누는 기준은 최종페이지 기능)
+. Webpack Module Federation
+
+## 컴포저블 어플리케이션
+. 모듈성(업무 도메인을 관리 가능한 구성요소로 분할), 자주성, 디스커버리(검색), 오케스트레이션(어플리케이션 재구성) 원칙 기반
+. 재활용 가능한 비즈니스 기능(Packaged Business Capability)를 유연하고 신속하게 조립
+. 비지니스 변화 속도에 민첩하게 대응하는 어플리케이션 개발 기술
+. PBC
+  . 비지니스 사용자가 인식할 수 있는 잘 정의된 비지니스 기능을 나타내는 캡슐화된 SW 구성요소
+  . Autonomous PBC (기능 완전, 독접적 캡슐화)
+  . Basic business function PBC (기본데이터 모델링, 완전성 없고 자율성 부족)
+  . Orchestratio PBC (프로세스를 캡슐화, PBC 호출 작업이 대부분)
+  . Pseudo PBC (모놀리식 어플리케이션 앞에 배치, 패키지된 비지니스 기능처럼 보이도록 기존 시스템 래핑)
+. Mendix
+
+## Golang
+. Goroutine을 통해 동시성 지원
+. channel : Goroutine의 통신 담당 (main과 Goroutine, Goroutine 사이)
+  . blocking operation
+
+## 빅데이터 플랫폼
+. 데이터 생성, 수집, 처리, 분석, 활용
+. 작업관리 : Airflow (파이썬 코드로 ETL 작업 자동화, 워크플로우 작성)
+. 분산 컴퓨팅 : EMR,(하둡 에코 시스템 기반) Glue(GCP Bigquery, RDS, AWS Redshift 등에 대한 대용량 데이터 분산 처리)
+. 저장 : Redshift(DW 전용 DB), S3
+. AWS 환경 구축 시 고려사항
+  . 데이터 접근 권한 IAM 설계
+  . 서버리스 서비스 구축을 위한 CIDR 설계
+. IP 부족 해결 방안
+  . 동시 실행 job 개수 줄이기, 적절한 serverless 작업 그룹 및 worker 사이즈, 더 큰 대역대의 CIDR을 가진 서브넷 신규 생성 또는 교체
+. 기술 동향 : 리소스 자동 크기 조정, 클러스터 관리 및 운영 effort down, 사용한 만큼만 지불, serverless
+
+## eventuate를 활용한 비동기 메세지 통신
+. 비동기 메세지 통신(이벤트 기반 아키텍처)
+. broker messaging (vs brokerless messaging)
+  . loose coupling (느슨한 결합, 상호의존성 최소화 > 독립성, 지속성), 유연한 커뮤니케이션, 안전한 데이터 보장
+  . 추가 운영 인프라 설치구성, 유지관리 필요, 성능에 대한 병목, 단일 장애점 가능성
+  . apache kafka(1MB 제약, 초당 100만건), rabbitmq(사이즈 제약 없음, 초당 1만건), activemq, aws kinesis, aws sqs
+  . publisher, broker, subscriber
+. CDC (Change Data Capture)
+  . 변경 데이터 관리를 통해 트랜잭션의 일관성을 확보하기 위한 패턴
+  . MSA 분산 환경에서 매우 중요한 데이터 확보 방안
+  . Eventuate Tram : MySQL binlog 프로토콜, Postgres WAL, 폴링을 응용해 OUTBOX 테이블의 변경분을 읽어 카프카로 이벤트를 발행하는 오픈소스 트랜잭션 메시징 라이브러리
+  . 주요 특징
+    . 트랜잭셔널 아웃박스 패턴 (데이터 일관성 및 무결성 보장)
+    . 가용성 보장 (active-standby 방식으로 클러스터 구성, failover, 주키퍼 리더 선출 방식)
+	. CDC outbox store
+  . 단점
+    . publish 속도 한계 (분리...)
+	. oracle 미지원
+	. 모니터링 어려움
+  . eventuatelocal.cdc.polling.interval.in.milliseconds
+  . eventuatelocal.cdc.max.events.per.polling
+  . eventuate.cdc.outbox.partitioning.outbox.tables
+  . eventuate.cdc.polling.parallel.channels
+  . eventuate.local.kafka.consumer.back-pressure.high
+  . eventuate.local.kafka.consumer.back-pressure.low
+  . eventuate.tram.outbox.partitioning.outbox.tables
+  
+## AI 지능형 IDE
+. 코드 변환, 코드 추천, 코드 완성, SQL 생성, 코드 품질 검사/수정
+. 프로젝트 특성 정보 : 코딩 표준, 보안 표준, 응용 F/W, 메타 시스템, DB 스키마
+
+## public cloud 이관
+. 기대효과 : IT 운영 비용 절감, HW 할당 효율성, 데이터 분석 활용, 민첩성 향상, 데이터 통합 및 현대화 등
+. cloud 이관 전략 6R : Retain, Retire, Rehost, Replatform, Refactor, Rearchitect
+. Retain : 이관 없이 non cloud 환경 사용, 이관해도 이득이 없을 때
+, Retire : 사용하지 않고 폐기, 이관 후 더이상 쓰지 않게 되는 기존 시스템
+. Rehost : Lift and Shite, 어플리케이션 및 환경을 그대로 이관, 가장 간단
+. Replatform : OS/WAS/DBMS 등의 플랫폼을 변경하여 어플리케이션을 cloud 환경에 최적화
+. Refactor : cloud native 서비스(serverless 등)를 적극 이용하여 재구성, 성능/확장성/민첩성 향상, application modernization
+. Rearchitect : 아키텍처 재구성, 모놀리식 > MSA 등, 가장 많은 고려사항 및 변경
+. AWS Application Migration Service(MGN) < CloudEndure
+  . 대표적인 lift and shitt 서비스, 쉽고 간편한 복제 지원
+  . 다양한 OS 지원 (EOS된 OS 포함)
+  . agent 설치 필요
+  . Not ready (agent 설치 후 초기 동기화 중) > Ready for testing (서버가 MGN에 추가되어 데이터 복제 시작)> Test in progress (테스트 인스턴스로 테스트 가능) > Ready for cutover (테스트 및 이상 없음을 확인한 단계) > Cutover in progress > Cutover complete
+. AWS MGN 사용시 고려사항
+  . IP 변경, 라이센스 확인 필요, 방화벽 정책 검토 필요(이관시 사용되는 443, 1500 TCP 포트 사전 오픈 등)
+
+## jenkins shared library
+. jenkins pipeline : 플러그인 모음
+. scripted pipeline
+ . node : 젠킨스 에이전트, 최상단 선언
+  . dir : 명령을 수행할 디렉토리
+ . stage : 파이프라인의 각 단계 (본문)
+. declarative pipeline
+  . pipeline, agent, environment, tools
+  . options, triggers, parameters, stages, stage, steps, post, when
+. jenkins shared library
+  . jenkins 작업 간에 공유하는 코드를 library로 사용하는 기능
+  . 코드 공유 및 중복 방지
+  . CI/CD 관련 스크립트 변경 commit 이력을 개발 commit과 분리
+ 
+## 어플리케이션 경량화
+. MSA, 클라우드 네이티브, 2-Core 아키텍처
+. 비대면 서비스 분리, 레이어드 아키텍처 적용, 어플리케이션 경량화, 코어시스템 경량화
+. 레이어드 아키텍처 목표 : 어플리케이션 구조 표준화, 복잡도 감소, 중복 로직 제거, 응집도 증가, 결합도 감소
+. 어플리케이션 경량화 : 서비스/모듈 분리, 서비스 콜뎁스 감소, 모듈 라인 수 감소
+. 고객 요구사항에 대한 개선방안과 상세한 아키텍처, 명확한 목표 제시
+
+## 병행운영미들웨어운영사례
+. HTH(HTTP Request Hander) : WebtoB <-> 클라이언트
+. DB Connection Pool : WAS 인스턴스의 전체 thread 개수의 30~60%
+. WAS-DB 가용성
+  . Oracle RAC의 CTF 기능(Primary 장애 후 Failback 없음. 세션 정리를 위한 WAS 재기동 필요)
+  . JEUS의 Cluster Data Srouce (Connection Failback)
